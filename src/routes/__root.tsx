@@ -114,16 +114,21 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { BackgroundShapes } from "@/components/BackgroundShapes";
+import { PageTransition } from "@/components/PageTransition";
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col bg-background text-foreground antialiased">
+      <div className="relative flex min-h-screen flex-col bg-background text-foreground antialiased">
+        <BackgroundShapes />
         <Navbar />
         <main className="flex-1">
-          <Outlet />
+          <PageTransition>
+            <Outlet />
+          </PageTransition>
         </main>
         <Footer />
       </div>
