@@ -42,6 +42,7 @@ function Work() {
   const isWork = pathname.includes("/work");
   const isVideoEditing = pathname.includes("/work/video-editing");
   const isGraphicDesign = pathname.includes("/work/graphic-design");
+  const showWorkPage = isWork && !isVideoEditing && !isGraphicDesign;
   const isHero = "hero";
   const items = [
     {
@@ -280,7 +281,7 @@ function Work() {
           </div>
         </section>
       )}
-      {isWork && (
+      {showWorkPage && (
         <section className="relative overflow-hidden w-full">
           <div className="absolute inset-0 -z-10">
             <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-primary/10 blur-3xl" />
@@ -368,7 +369,7 @@ function Work() {
           </div>
         </section>
       )}
-      {isWork && (
+      {showWorkPage && (
         <section className="w-full px-6 md:px-10 py-16 bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto">
         
