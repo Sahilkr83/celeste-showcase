@@ -4,4 +4,7 @@ import netlify from "@netlify/vite-plugin-tanstack-start";
 export default defineConfig({
   cloudflare: false,
   plugins: [netlify()],
+  tanstackStart: {
+    ssr: true,
+  },
 });
