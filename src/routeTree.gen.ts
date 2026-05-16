@@ -16,6 +16,8 @@ import { Route as ProcessRouteImport } from './routes/process'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkVideoEditingRouteImport } from './routes/work/video-editing'
+import { Route as WorkGraphicDesignRouteImport } from './routes/work/graphic-design'
 
 const WorkRoute = WorkRouteImport.update({
   id: '/work',
@@ -52,6 +54,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkVideoEditingRoute = WorkVideoEditingRouteImport.update({
+  id: '/video-editing',
+  path: '/video-editing',
+  getParentRoute: () => WorkRoute,
+} as any)
+const WorkGraphicDesignRoute = WorkGraphicDesignRouteImport.update({
+  id: '/graphic-design',
+  path: '/graphic-design',
+  getParentRoute: () => WorkRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,7 +72,9 @@ export interface FileRoutesByFullPath {
   '/process': typeof ProcessRoute
   '/services': typeof ServicesRoute
   '/testimonials': typeof TestimonialsRoute
-  '/work': typeof WorkRoute
+  '/work': typeof WorkRouteWithChildren
+  '/work/graphic-design': typeof WorkGraphicDesignRoute
+  '/work/video-editing': typeof WorkVideoEditingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +83,9 @@ export interface FileRoutesByTo {
   '/process': typeof ProcessRoute
   '/services': typeof ServicesRoute
   '/testimonials': typeof TestimonialsRoute
-  '/work': typeof WorkRoute
+  '/work': typeof WorkRouteWithChildren
+  '/work/graphic-design': typeof WorkGraphicDesignRoute
+  '/work/video-editing': typeof WorkVideoEditingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +95,9 @@ export interface FileRoutesById {
   '/process': typeof ProcessRoute
   '/services': typeof ServicesRoute
   '/testimonials': typeof TestimonialsRoute
-  '/work': typeof WorkRoute
+  '/work': typeof WorkRouteWithChildren
+  '/work/graphic-design': typeof WorkGraphicDesignRoute
+  '/work/video-editing': typeof WorkVideoEditingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +109,8 @@ export interface FileRouteTypes {
     | '/services'
     | '/testimonials'
     | '/work'
+    | '/work/graphic-design'
+    | '/work/video-editing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +120,8 @@ export interface FileRouteTypes {
     | '/services'
     | '/testimonials'
     | '/work'
+    | '/work/graphic-design'
+    | '/work/video-editing'
   id:
     | '__root__'
     | '/'
@@ -109,6 +131,8 @@ export interface FileRouteTypes {
     | '/services'
     | '/testimonials'
     | '/work'
+    | '/work/graphic-design'
+    | '/work/video-editing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,7 +142,7 @@ export interface RootRouteChildren {
   ProcessRoute: typeof ProcessRoute
   ServicesRoute: typeof ServicesRoute
   TestimonialsRoute: typeof TestimonialsRoute
-  WorkRoute: typeof WorkRoute
+  WorkRoute: typeof WorkRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -172,8 +196,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/work/video-editing': {
+      id: '/work/video-editing'
+      path: '/video-editing'
+      fullPath: '/work/video-editing'
+      preLoaderRoute: typeof WorkVideoEditingRouteImport
+      parentRoute: typeof WorkRoute
+    }
+    '/work/graphic-design': {
+      id: '/work/graphic-design'
+      path: '/graphic-design'
+      fullPath: '/work/graphic-design'
+      preLoaderRoute: typeof WorkGraphicDesignRouteImport
+      parentRoute: typeof WorkRoute
+    }
   }
 }
+
+interface WorkRouteChildren {
+  WorkGraphicDesignRoute: typeof WorkGraphicDesignRoute
+  WorkVideoEditingRoute: typeof WorkVideoEditingRoute
+}
+
+const WorkRouteChildren: WorkRouteChildren = {
+  WorkGraphicDesignRoute: WorkGraphicDesignRoute,
+  WorkVideoEditingRoute: WorkVideoEditingRoute,
+}
+
+const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -182,7 +232,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProcessRoute: ProcessRoute,
   ServicesRoute: ServicesRoute,
   TestimonialsRoute: TestimonialsRoute,
-  WorkRoute: WorkRoute,
+  WorkRoute: WorkRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

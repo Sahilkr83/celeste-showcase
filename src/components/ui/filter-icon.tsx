@@ -8,6 +8,7 @@ const FilterIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     const isAnimatingRef = useRef(false);
 
     const start = useCallback(async () => {
+      if (!scope.current) return;
       if (isAnimatingRef.current) return;
       isAnimatingRef.current = true;
 
@@ -55,9 +56,13 @@ const FilterIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     const stop = useCallback(() => {
       isAnimatingRef.current = false;
+
+      if (!scope.current) return;
+
       animate(".funnel", { rotate: 0, scale: 1, strokeWidth }, { duration: 0.3 });
+
       animate("[class^='p-in'], [class^='p-out']", { opacity: 0 }, { duration: 0.3 });
-    }, [animate, strokeWidth]);
+    }, [animate, strokeWidth, scope]);
 
     useImperativeHandle(ref, () => ({
       startAnimation: start,

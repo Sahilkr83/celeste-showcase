@@ -1,4 +1,8 @@
-export function FeaturedProjectsSection() {
+type FeaturedProjectsSectionProps = {
+  variant?: "default" | "hero";
+};
+export function FeaturedProjectsSection({ variant = "default" }: FeaturedProjectsSectionProps) {
+  const isHero = variant === "hero";
   const projects = [
     {
       category: "Travel Vlog",
@@ -31,23 +35,26 @@ export function FeaturedProjectsSection() {
   ];
 
   return (
-    <section className="w-full px-6 md:px-10 py-20 bg-[#F8FAFC] overflow-hidden">
+    <section className={`w-full px-6 md:px-10 py-10  overflow-hidden ${!isHero && "py-20"}`}>
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-[0.25em] uppercase border border-blue-100">
+            {isHero && <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-[0.25em] uppercase border border-blue-100">
               Featured Projects
-            </span>
+            </span>}
 
             <div className="flex min-w-7xl justify-between items-center mt-6">
               {" "}
+              {isHero ? 
+              (
               <h2 className=" text-4xl md:text-6xl font-black text-slate-900 leading-[1]">
                 Work That
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {" "}
                   Speaks For Itself
                 </span>
-              </h2>
+              </h2>):
+              (<h2 className="font-bold text-3xl">Recent Edits</h2>)}
               <button className="h-14 px-8 rounded-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-lg shadow-blue-500/20 hover:scale-105 transition-transform">
                 View All Projects
               </button>

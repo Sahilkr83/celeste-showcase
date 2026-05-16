@@ -18,14 +18,25 @@ import {
   MoveRight,
   Star,
   Quote,
+  PenTool,
+  Grid2X2,
+  Layers3,
 } from "lucide-react";
 import { LinkButton, Button } from "@/components/Button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import HeroImg from "@/assets/heroOfHome.png";
-import EditImg from "@/assets/editingSection.png";
+import HeroImg2 from "@/assets/Hero2.png";
 import { SectionTitle } from "@/components/SectionTitle";
 import { FeaturedProjectsSection } from "@/components/featuredProject";
 import { MyProcessSection } from "@/components/myProcessSection";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,15 +51,18 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+type Props = {
+  variant?: "default" | "hero";
+};
 
 function Home() {
   return (
     <>
-      <Hero />
+      <Hero variant="hero" />
       {/* <Testimonials/> */}
-      <ServicesElevateBrandSection/>
-      <FeaturedProjectsSection/>
-      <MyProcessSection />
+      <ServicesElevateBrandSection />
+      <FeaturedProjectsSection variant="hero" />
+      <MyProcessSection variant="hero" />
 
       {/* <TrustedLogos /> */}
       {/* <Stats /> */}
@@ -58,7 +72,26 @@ function Home() {
 
 /* ───────────────────────── HERO ───────────────────────── */
 
-function Hero() {
+export function Hero({ variant = "default" }: Props) {
+  const isHero = variant === "hero";
+  const features = [
+    {
+      title: "Brand Focused",
+      desc: "Designs that reflect your identity.",
+      icon: PenTool,
+    },
+    {
+      title: "Creative Approach",
+      desc: "Unique ideas for maximum impact.",
+      icon: Grid2X2,
+    },
+    {
+      title: "Attention to Detail",
+      desc: "Pixel-perfect designs that stand out.",
+      icon: Layers3,
+    },
+  ];
+
   return (
     <section className="relative overflow-hidden w-full">
       <div className="absolute inset-0 -z-10">
@@ -73,53 +106,132 @@ function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-md"
+            className={`${isHero ? "max-w-md" : "max-w-lg"} flex flex-col items-start h-full`}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+            {!isHero && (
+              <Breadcrumb className="mb-20">
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/" className="text-black transition-colors">
+                      Home
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+
+                  <BreadcrumbSeparator className="text-black" />
+
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/work" className="text-black transition-colors">
+                      Work
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+
+                  <BreadcrumbSeparator className="text-black" />
+
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-medium">
+                      Graphic Design
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            )}
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                </span>
+                {isHero ? "Available For Freelance" : "Graphic Design"}
               </span>
-              Available For Freelance
-            </span>
 
-            <h1 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-foreground leading-[1.02]">
-              Designs that <span className="text-primary">inspire.</span>
-              <br />
-              Edits that make an <span className="text-primary">impact.</span>
-            </h1>
+              <h1 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-foreground leading-[1.02]">
+                {!isHero ? (
+                  <p>
+                    Visuals <span className="text-primary">that</span>
+                    <br />
+                    speaks your <span className="text-primary">Brand</span>{" "}
+                  </p>
+                ) : (
+                  <p>
+                    Designs that <span className="text-primary">inspire.</span>
+                    <br />
+                    Edits that make an <span className="text-primary">impact.</span>{" "}
+                  </p>
+                )}
+              </h1>
 
-            <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              We are Zentrix Fintech — a creative digital agency blending strategy, cinematic
-              storytelling, and cutting-edge design to help modern brands stand out, connect deeply,
-              and grow with impact across the digital world.
-            </p>
+              {isHero ? (
+                <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+                  We are Zentrix Fintech — a creative digital agency blending strategy, cinematic
+                  storytelling, and cutting-edge design to help modern brands stand out, connect
+                  deeply, and grow with impact across the digital world.
+                </p>
+              ) : (
+                <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+                  We design clean, modern,and memorable visuals that communicate your message and
+                  leave a lasting impression.
+                </p>
+              )}
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <LinkButton to="/contact" variant="primary" arrow>
-                Hire Me
-              </LinkButton>
-              <Button variant="ghost">
-                <Play className="h-4 w-4 fill-current" />
-                Watch Showreel
-              </Button>
-            </div>
+              {isHero ? (
+                <div>
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                    <LinkButton to="/contact" variant="primary" arrow>
+                      Hire Me
+                    </LinkButton>
+                    <Button
+                      onClick={() =>
+                        (window.location.href = "http://localhost:8080/work/graphic-design")
+                      }
+                      variant="ghost"
+                    >
+                      <Play className="h-4 w-4 fill-current" />
+                      Watch Showreel
+                    </Button>
+                  </div>
+                  <div className="mt-10 flex items-center gap-3">
+                    <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                      Follow
+                    </span>
+                    <span className="h-px w-10 bg-border" />
+                    {[Twitter, Instagram, Dribbble, Linkedin, Github].map((Icon, i) => (
+                      <motion.a
+                        key={i}
+                        href="#"
+                        whileHover={{ y: -3 }}
+                        className="rounded-full border border-border bg-background p-2.5 text-muted-foreground hover:text-primary hover:border-primary/40 transition"
+                      >
+                        <Icon className="h-4 w-4" />
+                      </motion.a>
+                    ))}
+                  </div>{" "}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-8">
+                  {features.map((feature, i) => {
+                    const Icon = feature.icon;
 
-            <div className="mt-10 flex items-center gap-3">
-              <span className="text-xs uppercase tracking-widest text-muted-foreground">
-                Follow
-              </span>
-              <span className="h-px w-10 bg-border" />
-              {[Twitter, Instagram, Dribbble, Linkedin, Github].map((Icon, i) => (
-                <motion.a
-                  key={i}
-                  href="#"
-                  whileHover={{ y: -3 }}
-                  className="rounded-full border border-border bg-background p-2.5 text-muted-foreground hover:text-primary hover:border-primary/40 transition"
-                >
-                  <Icon className="h-4 w-4" />
-                </motion.a>
-              ))}
+                    return (
+                      <div key={i} className="flex flex-col">
+                        {/* Icon Box */}
+                        <div className="w-12 h-12 rounded-md bg-[#F4F7FF] flex items-center justify-center shadow-sm">
+                          <Icon className="w-6 h-6 text-blue-600 stroke-[2]" />
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="mt-5 text-base font-semibold text-slate-900 ">
+                          {feature.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="mt-2 text-slate-500 leading-relaxed text-sm max-w-[220px]">
+                          {feature.desc}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </motion.div>
 
@@ -130,64 +242,71 @@ function Hero() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="relative"
           >
-            <WorkspaceMockup />
+            <div className="relative">
+              {/* glow */}
+              <div className="absolute -inset-6 rounded-[1.5rem] bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-2xl z-20" />
+
+              {/* desktop frame */}
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="relative rounded-[1.5rem]  overflow-hidden"
+              >
+                {isHero ? (
+                  <img
+                    src={HeroImg}
+                    alt="Workspace Mockup"
+                    width={1024}
+                    height={700}
+                    className="h-[24rem] sm:h-[29rem] w-[34rem] sm:w-[48rem] max-w-none"
+                  />
+                ) : (
+                  <img
+                    src={HeroImg2}
+                    alt="Workspace Mockup"
+                    width={1024}
+                    height={700}
+                    className="h-[24rem] sm:h-[32rem] w-[34rem] sm:w-[45rem] max-w-none"
+                  />
+                )}
+              </motion.div>
+              {/* floating glassmorphism service card */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                whileHover={{ y: -4 }}
+                className="absolute bottom-8 -left-10 sm:-right-8 w-60 rounded-2xl border border-white/40 bg-white backdrop-blur-xl p-4 shadow-2xl z-30"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs text-muted-foreground">Now Booking</div>
+                    <div className="text-sm font-semibold text-foreground">
+                      Brand & Motion Design
+                    </div>
+                    <div className="mt-2 flex items-center gap-1 text-xs font-medium text-primary">
+                      View packages <ArrowUpRight className="h-3 w-3" />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
         {/* <VideoEditingSection /> */}
-        <VideoShowcase />
+        {isHero && <VideoShowcase variant="hero" />}
       </div>
     </section>
   );
 }
 
-function WorkspaceMockup() {
-  return (
-    <div className="relative">
-      {/* glow */}
-      <div className="absolute -inset-6 rounded-[1.5rem] bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-2xl z-20" />
-
-      {/* desktop frame */}
-      <motion.div
-        whileHover={{ y: -6 }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        className="relative rounded-[1.5rem] border border-border bg-card shadow-2xl overflow-hidden"
-      >
-        <img
-          src={HeroImg}
-          alt="Workspace Mockup"
-          width={1024}
-          height={700}
-          className="h-[24rem] sm:h-[29rem] w-[34rem] sm:w-[48rem] max-w-none"
-        />
-      </motion.div>
-      {/* floating glassmorphism service card */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-        whileHover={{ y: -4 }}
-        className="absolute bottom-8 -left-10 sm:-right-8 w-60 rounded-2xl border border-white/40 bg-white backdrop-blur-xl p-4 shadow-2xl z-30"
-      >
-        <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
-            <Sparkles className="h-5 w-5" />
-          </div>
-          <div className="min-w-0">
-            <div className="text-xs text-muted-foreground">Now Booking</div>
-            <div className="text-sm font-semibold text-foreground">Brand & Motion Design</div>
-            <div className="mt-2 flex items-center gap-1 text-xs font-medium text-primary">
-              View packages <ArrowUpRight className="h-3 w-3" />
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
 /* ───────────────────────── VIDEO SHOWCASE (DARK) ───────────────────────── */
 
-function VideoShowcase() {
+export function VideoShowcase({ variant = "default" }: Props) {
+  const isHero = variant === "hero";
   const features = [
     {
       icon: Film,
@@ -210,69 +329,160 @@ function VideoShowcase() {
       desc: "Clean sound design with precise timing.",
     },
   ];
+  const features2 = [
+    {
+      title: "Cinematic Edits",
+      desc: "Story-driven edits with smooth pacing and flow.",
+      gradient: "from-violet-500 to-purple-500",
+      icon: "✂",
+    },
+    {
+      title: "Smooth Transitions",
+      desc: "Seamless transitions that keep viewers engaged.",
+      gradient: "from-blue-500 to-cyan-500",
+      icon: "⤴",
+    },
+    {
+      title: "Color Grading",
+      desc: "Professional color correction that sets the mood.",
+      gradient: "from-emerald-500 to-teal-500",
+      icon: "◉",
+    },
+    {
+      title: "Audio Enhancement",
+      desc: "Crisp audio, perfect sync, and noise reduction.",
+      gradient: "from-pink-500 to-rose-500",
+      icon: "🔊",
+    },
+  ];
+  const stats = [
+    {
+      number: "150+",
+      label: "Videos Edited",
+    },
+    {
+      number: "4+",
+      label: "Years Experience",
+    },
+    {
+      number: "50+",
+      label: "Happy Clients",
+    },
+  ];
 
   return (
-    <section className="w-full flex items-center justify-center">
-      <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0a0a14] px-6 py-10 sm:px-8 lg:px-12">
+    <section className={`w-full ${isHero ? "flex items-center justify-center" : " block pb-20"}`}>
+      <div
+        className={`relative  border border-white/10 bg-[#0a0a14] px-6 py-10 sm:px-8 lg:px-12 ${isHero ? "rounded-[1.5rem]" : "rounded-[0rem] flex items-center justify-center py-20"}`}
+      >
         {/* Background Effects */}
         <div className="pointer-events-none absolute -top-32 left-0 h-96 w-96 rounded-full bg-violet-600/30 blur-3xl" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-600/20 blur-3xl" />
 
-        <div className="relative flex gap-16 items-center">
+        <div className={`relative flex gap-16 items-center ${!isHero && "h-[620px]"}`}>
           {/* LEFT CONTENT */}
-          <div className="max-w-md">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70 backdrop-blur">
-              <Film className="h-3.5 w-3.5 text-violet-400" />
-              Video Editing Showcase
-            </div>
+          <div className="max-w-md flex flex-col items-start h-full">
+            {!isHero && (
+              <Breadcrumb className="mb-20">
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink
+                      href="/"
+                      className="text-white/70 hover:text-white transition-colors"
+                    >
+                      Home
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
 
-            <h2 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl">
-              Edit with purpose.
-              <br />
-              Create <span className="text-violet-400">stories</span> that
-              people remember.
-            </h2>
+                  <BreadcrumbSeparator className="text-white/30" />
 
-            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/60 sm:text-base">
-              From raw footage to polished cinematic experiences, we craft
-              engaging videos that elevate brands, capture attention, and leave
-              a lasting impact across every platform.
-            </p>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink
+                      href="/work"
+                      className="text-white/70 hover:text-white transition-colors"
+                    >
+                      Work
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
 
-            {/* FEATURES */}
-            <div className="mt-8 grid gap-5 sm:grid-cols-2">
-              {features.map((f, i) => (
-                <motion.div
-                  key={f.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  whileHover={{ y: -3 }}
-                  className="flex items-start gap-3"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white">
-                    <f.icon className="h-4 w-4" />
-                  </div>
+                  <BreadcrumbSeparator className="text-white/30" />
 
-                  <div>
-                    <p className="text-sm font-semibold text-white">
-                      {f.title}
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-white/55">
-                      {f.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-medium">
+                      Video Editing
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            )}
+            <div>
+              {" "}
+              <div className=" inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70 backdrop-blur">
+                <Film className="h-3.5 w-3.5 text-violet-400" />
+                Video Editing Showcase
+              </div>
+              <h2 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl">
+                Edit with purpose.
+                <br />
+                Create <span className="text-violet-400">stories</span> that people remember.
+              </h2>
+              <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/60 sm:text-base">
+                From raw footage to polished cinematic experiences, we craft engaging videos that
+                elevate brands, capture attention, and leave a lasting impact across every platform.
+              </p>
+              {/* FEATURES */}
+              {!isHero ? (
+                <div className="mt-14 flex flex-wrap gap-10">
+                  {stats.map((item) => (
+                    <div key={item.label}>
+                      <div className="flex items-center gap-2">
+                        <Star className="h-4 w-4 text-violet-400" />
 
-            {/* BUTTON */}
-            <div className="mt-10">
-              <button className="group flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.02]">
-                Explore Edits
-                <MoveRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </button>
+                        <span className="text-2xl font-bold text-white">{item.number}</span>
+                      </div>
+
+                      <p className="mt-1 text-sm text-white/55">{item.label}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="mt-10 grid gap-6 sm:grid-cols-2">
+                  {features.map((f, i) => (
+                    <motion.div
+                      key={f.title}
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.08 }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white">
+                        <f.icon className="h-4 w-4" />
+                      </div>
+
+                      <div>
+                        <p className="font-semibold text-white">{f.title}</p>
+
+                        <p className="mt-1 text-sm leading-relaxed text-white/55">{f.desc}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+              {/* BUTTON */}
+              {isHero && (
+                <div className="mt-10">
+                  <button
+                    onClick={() =>
+                      (window.location.href = "http://localhost:8080/work/video-editing")
+                    }
+                    className="group flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.02]"
+                  >
+                    Explore Edits
+                    <MoveRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -289,91 +499,121 @@ function VideoShowcase() {
 
             {/* Image Container */}
             <div className="relative flex items-center justify-center max-w-2xl">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-3xl rounded-full" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-3xl rounded-full" />
 
-            <div className="relative w-full max-w-3xl rounded-[1.5rem] border border-white/10 bg-[#070B18]/90 backdrop-blur-2xl overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.5)]">
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-white/[0.03]">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-400" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-400" />
-                </div>
-
-                <p className="text-white/70 text-sm">Cinematic Travel Edit</p>
-
-                <div className="w-8" />
-              </div>
-
-              <div className="relative aspect-video overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1600&auto=format&fit=crop"
-                  alt="Video Editing Showcase"
-                  className="w-full h-full object-cover"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-
-                <button className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center hover:scale-110 transition-transform">
-                    <div className="ml-1 w-0 h-0 border-y-[14px] border-y-transparent border-l-[22px] border-l-white" />
+              <div className="relative w-full max-w-3xl rounded-[1.5rem] border border-white/10 bg-[#070B18]/90 backdrop-blur-2xl overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.5)]">
+                <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-white/[0.03]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-400" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                    <div className="w-3 h-3 rounded-full bg-green-400" />
                   </div>
-                </button>
-              </div>
 
-              <div className="p-5 space-y-4">
-                <div className="flex items-center justify-between text-white/60 text-sm">
-                  <span>00:00:12:15</span>
-                  <span>4K Ultra HD</span>
+                  <p className="text-white/70 text-sm">Cinematic Travel Edit</p>
+
+                  <div className="w-8" />
                 </div>
 
-                <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                  <div className="w-2/3 h-full bg-gradient-to-r from-purple-500 to-blue-500" />
-                </div>
+                <div className="relative aspect-video overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1600&auto=format&fit=crop"
+                    alt="Video Editing Showcase"
+                    className="w-full h-full object-cover"
+                  />
 
-                <div className="grid grid-cols-4 gap-2">
-                  {[
-                    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop',
-                    'https://images.unsplash.com/photo-1493246318656-5bfd4cfb29b8?q=80&w=800&auto=format&fit=crop',
-                    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
-                    'https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=800&auto=format&fit=crop',
-                  ].map((img, i) => (
-                    <div key={i} className="aspect-video rounded-xl overflow-hidden border border-white/10">
-                      <img src={img} alt="preview" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+                  <button className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center hover:scale-110 transition-transform">
+                      <div className="ml-1 w-0 h-0 border-y-[14px] border-y-transparent border-l-[22px] border-l-white" />
                     </div>
-                  ))}
+                  </button>
+                </div>
+
+                <div className="p-5 space-y-4">
+                  <div className="flex items-center justify-between text-white/60 text-sm">
+                    <span>00:00:12:15</span>
+                    <span>4K Ultra HD</span>
+                  </div>
+
+                  <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                    <div className="w-2/3 h-full bg-gradient-to-r from-purple-500 to-blue-500" />
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-2">
+                    {[
+                      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop",
+                      "https://images.unsplash.com/photo-1493246318656-5bfd4cfb29b8?q=80&w=800&auto=format&fit=crop",
+                      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop",
+                      "https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=800&auto=format&fit=crop",
+                    ].map((img, i) => (
+                      <div
+                        key={i}
+                        className="aspect-video rounded-xl overflow-hidden border border-white/10"
+                      >
+                        <img src={img} alt="preview" className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           </motion.div>
         </div>
+        {!isHero && (
+          <section className="w-full px-6 py-8 absolute -bottom-45 z-30">
+            <div className="max-w-7xl mx-auto rounded-[32px] border border-slate-200 bg-white shadow-sm ">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+                {features2.map((feature, i) => (
+                  <div
+                    key={i}
+                    className={`relative p-8 ${
+                      i !== features.length - 1
+                        ? "border-b xl:border-b-0 xl:border-r border-slate-200"
+                        : ""
+                    }`}
+                  >
+                    <div
+                      className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white text-xl shadow-lg`}
+                    >
+                      {feature.icon}
+                    </div>
+
+                    <h3 className="mt-6 text-xl font-bold text-slate-900">{feature.title}</h3>
+
+                    <p className="mt-3 text-slate-500 leading-relaxed text-sm">{feature.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </div>
     </section>
   );
 }
 
-
 function ServicesElevateBrandSection() {
   const services = [
     {
-      title: 'Graphic Design',
-      desc: 'Logos, branding, print & digital visuals that communicate your message clearly.',
-      gradient: 'from-blue-500 to-cyan-400',
+      title: "Graphic Design",
+      desc: "Logos, branding, print & digital visuals that communicate your message clearly.",
+      gradient: "from-blue-500 to-cyan-400",
     },
     {
-      title: 'Video Editing',
-      desc: 'Professional edits that turn raw footage into engaging cinematic stories.',
-      gradient: 'from-purple-500 to-pink-500',
+      title: "Video Editing",
+      desc: "Professional edits that turn raw footage into engaging cinematic stories.",
+      gradient: "from-purple-500 to-pink-500",
     },
     {
-      title: 'Brand Identity',
-      desc: 'Complete identity systems that help your business stand out beautifully.',
-      gradient: 'from-emerald-500 to-teal-400',
+      title: "Brand Identity",
+      desc: "Complete identity systems that help your business stand out beautifully.",
+      gradient: "from-emerald-500 to-teal-400",
     },
     {
-      title: 'Social Media Design',
-      desc: 'High-performing social creatives optimized for engagement and growth.',
-      gradient: 'from-orange-500 to-pink-500',
+      title: "Social Media Design",
+      desc: "High-performing social creatives optimized for engagement and growth.",
+      gradient: "from-orange-500 to-pink-500",
     },
   ];
 
@@ -388,13 +628,14 @@ function ServicesElevateBrandSection() {
           <h2 className="mt-6 text-4xl md:text-6xl font-black text-slate-900 leading-[1]">
             Services That Elevate
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {' '}Your Brand
+              {" "}
+              Your Brand
             </span>
           </h2>
 
           <p className="mt-6 text-slate-500 text-lg leading-relaxed">
-            Powerful design and editing solutions crafted to help brands stand out,
-            connect with audiences, and grow with confidence.
+            Powerful design and editing solutions crafted to help brands stand out, connect with
+            audiences, and grow with confidence.
           </p>
         </div>
 
@@ -404,21 +645,21 @@ function ServicesElevateBrandSection() {
               key={i}
               className="group relative rounded-[32px] border border-slate-200 bg-white p-7 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
             >
-              <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${service.gradient} opacity-10 blur-3xl rounded-full`} />
+              <div
+                className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${service.gradient} opacity-10 blur-3xl rounded-full`}
+              />
 
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} p-[1px]`}>
+              <div
+                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} p-[1px]`}
+              >
                 <div className="w-full h-full rounded-2xl bg-white flex items-center justify-center">
                   <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${service.gradient}`} />
                 </div>
               </div>
 
-              <h3 className="mt-8 text-2xl font-bold text-slate-900">
-                {service.title}
-              </h3>
+              <h3 className="mt-8 text-2xl font-bold text-slate-900">{service.title}</h3>
 
-              <p className="mt-4 text-slate-500 leading-relaxed text-base">
-                {service.desc}
-              </p>
+              <p className="mt-4 text-slate-500 leading-relaxed text-base">{service.desc}</p>
 
               <button className="mt-8 inline-flex items-center gap-3 text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
                 Learn More
@@ -445,13 +686,14 @@ function ServicesElevateBrandSection() {
               <h3 className="mt-6 text-4xl md:text-5xl font-black text-white leading-tight">
                 Helping brands create
                 <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                  {' '}impactful experiences.
+                  {" "}
+                  impactful experiences.
                 </span>
               </h3>
 
               <p className="mt-5 text-white/60 text-lg leading-relaxed">
-                From strategy and branding to cinematic edits and social media visuals,
-                every project is crafted with precision and creativity.
+                From strategy and branding to cinematic edits and social media visuals, every
+                project is crafted with precision and creativity.
               </p>
             </div>
 
@@ -470,8 +712,6 @@ function ServicesElevateBrandSection() {
     </section>
   );
 }
-
-
 
 /* ───────────────────────── TRUSTED LOGOS ───────────────────────── */
 
@@ -531,12 +771,48 @@ function Stats() {
 }
 
 const items = [
-  { q: "Aman shipped a brand and product launch in 6 weeks. Best design hire we've ever made.", a: "Mira Chen", r: "CEO, Lumen", initials: "MC", color: "from-blue-200 to-indigo-300" },
-  { q: "Pixel-perfect, fast, and ridiculously thoughtful. Every detail was considered.", a: "Daniel Park", r: "Head of Product, Orbit", initials: "DP", color: "from-emerald-200 to-teal-300" },
-  { q: "He doesn't just design — he thinks like a founder. Rare combination.", a: "Sasha Reyes", r: "Founder, Maison Clay", initials: "SR", color: "from-amber-200 to-orange-300" },
-  { q: "The most polished work we've ever shipped. Our conversion doubled.", a: "Ethan Wells", r: "CMO, Northwave", initials: "EW", color: "from-rose-200 to-pink-300" },
-  { q: "Working with AK felt like adding a senior designer to our founding team.", a: "Lina Ortiz", r: "COO, Pulse Health", initials: "LO", color: "from-violet-200 to-fuchsia-300" },
-  { q: "Editorial-grade work, indie-studio energy. We will absolutely hire again.", a: "Tomás Alvarez", r: "Director, Atlas", initials: "TA", color: "from-cyan-200 to-sky-300" },
+  {
+    q: "Aman shipped a brand and product launch in 6 weeks. Best design hire we've ever made.",
+    a: "Mira Chen",
+    r: "CEO, Lumen",
+    initials: "MC",
+    color: "from-blue-200 to-indigo-300",
+  },
+  {
+    q: "Pixel-perfect, fast, and ridiculously thoughtful. Every detail was considered.",
+    a: "Daniel Park",
+    r: "Head of Product, Orbit",
+    initials: "DP",
+    color: "from-emerald-200 to-teal-300",
+  },
+  {
+    q: "He doesn't just design — he thinks like a founder. Rare combination.",
+    a: "Sasha Reyes",
+    r: "Founder, Maison Clay",
+    initials: "SR",
+    color: "from-amber-200 to-orange-300",
+  },
+  {
+    q: "The most polished work we've ever shipped. Our conversion doubled.",
+    a: "Ethan Wells",
+    r: "CMO, Northwave",
+    initials: "EW",
+    color: "from-rose-200 to-pink-300",
+  },
+  {
+    q: "Working with AK felt like adding a senior designer to our founding team.",
+    a: "Lina Ortiz",
+    r: "COO, Pulse Health",
+    initials: "LO",
+    color: "from-violet-200 to-fuchsia-300",
+  },
+  {
+    q: "Editorial-grade work, indie-studio energy. We will absolutely hire again.",
+    a: "Tomás Alvarez",
+    r: "Director, Atlas",
+    initials: "TA",
+    color: "from-cyan-200 to-sky-300",
+  },
 ];
 
 function Card({ t }: { t: (typeof items)[number] }) {
@@ -546,7 +822,9 @@ function Card({ t }: { t: (typeof items)[number] }) {
       <p className="mt-5 text-base leading-relaxed text-foreground">"{t.q}"</p>
       <div className="mt-7 flex items-center justify-between border-t border-border/60 pt-5">
         <div className="flex items-center gap-3">
-          <div className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${t.color} text-sm font-semibold text-foreground/80`}>
+          <div
+            className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${t.color} text-sm font-semibold text-foreground/80`}
+          >
             {t.initials}
           </div>
           <div>
@@ -571,7 +849,11 @@ function Testimonials() {
   return (
     <div className="py-24">
       <div className="mx-auto max-w-7xl ">
-        <SectionTitle eyebrow="Testimonials" title="Trusted by teams who ship." subtitle="Hover to pause the marquee." />
+        <SectionTitle
+          eyebrow="Testimonials"
+          title="Trusted by teams who ship."
+          subtitle="Hover to pause the marquee."
+        />
       </div>
 
       <div className="mt-16 space-y-6 ">
@@ -581,7 +863,10 @@ function Testimonials() {
             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
             <div
               className="marquee-track flex w-max"
-              style={{ animationDirection: idx === 1 ? "reverse" : "normal", animationDuration: idx === 1 ? "55s" : "45s" }}
+              style={{
+                animationDirection: idx === 1 ? "reverse" : "normal",
+                animationDuration: idx === 1 ? "55s" : "45s",
+              }}
             >
               {row.map((t, i) => (
                 <Card key={`${idx}-${i}`} t={t} />
@@ -608,4 +893,3 @@ function Testimonials() {
     </div>
   );
 }
-
