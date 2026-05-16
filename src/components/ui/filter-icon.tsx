@@ -3,10 +3,7 @@ import type { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
 const FilterIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-  (
-    { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
-    ref,
-  ) => {
+  ({ size = 24, color = "currentColor", strokeWidth = 2, className = "" }, ref) => {
     const [scope, animate] = useAnimate();
     const isAnimatingRef = useRef(false);
 
@@ -17,9 +14,7 @@ const FilterIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       // Filtering Loop
       while (isAnimatingRef.current) {
         // 1. Swarm of Input Particles (8-10 entering)
-        const inParticles = Array.from({ length: 8 }).map(
-          (_, i) => `.p-in-${i}`,
-        );
+        const inParticles = Array.from({ length: 8 }).map((_, i) => `.p-in-${i}`);
         inParticles.forEach((selector, i) => {
           animate(
             selector,
@@ -60,16 +55,8 @@ const FilterIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     const stop = useCallback(() => {
       isAnimatingRef.current = false;
-      animate(
-        ".funnel",
-        { rotate: 0, scale: 1, strokeWidth },
-        { duration: 0.3 },
-      );
-      animate(
-        "[class^='p-in'], [class^='p-out']",
-        { opacity: 0 },
-        { duration: 0.3 },
-      );
+      animate(".funnel", { rotate: 0, scale: 1, strokeWidth }, { duration: 0.3 });
+      animate("[class^='p-in'], [class^='p-out']", { opacity: 0 }, { duration: 0.3 });
     }, [animate, strokeWidth]);
 
     useImperativeHandle(ref, () => ({

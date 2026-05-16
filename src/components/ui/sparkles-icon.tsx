@@ -3,10 +3,7 @@ import type { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
 const SparklesIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-  (
-    { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
-    ref,
-  ) => {
+  ({ size = 24, color = "currentColor", strokeWidth = 2, className = "" }, ref) => {
     const [scope, animate] = useAnimate();
 
     const start = useCallback(async () => {
@@ -42,16 +39,8 @@ const SparklesIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     const stop = useCallback(() => {
       animate(".sparkle-main", { rotate: 0, scale: 1 }, { duration: 0.25 });
-      animate(
-        ".sparkle-top",
-        { rotate: 0, scale: 1, opacity: 1 },
-        { duration: 0.25 },
-      );
-      animate(
-        ".sparkle-bottom",
-        { rotate: 0, scale: 1, opacity: 1 },
-        { duration: 0.25 },
-      );
+      animate(".sparkle-top", { rotate: 0, scale: 1, opacity: 1 }, { duration: 0.25 });
+      animate(".sparkle-bottom", { rotate: 0, scale: 1, opacity: 1 }, { duration: 0.25 });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({

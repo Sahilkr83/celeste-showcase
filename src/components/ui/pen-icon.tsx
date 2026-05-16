@@ -3,10 +3,7 @@ import type { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
 const PenIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-  (
-    { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
-    ref,
-  ) => {
+  ({ size = 24, color = "currentColor", strokeWidth = 2, className = "" }, ref) => {
     const [scope, animate] = useAnimate();
 
     const start = useCallback(async () => {
@@ -32,19 +29,11 @@ const PenIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         { duration: 0.2, ease: "easeInOut" },
       );
 
-      animate(
-        ".pen-group",
-        { x: 0, y: 0, rotate: 0 },
-        { duration: 0.25, ease: "easeInOut" },
-      );
+      animate(".pen-group", { x: 0, y: 0, rotate: 0 }, { duration: 0.25, ease: "easeInOut" });
     }, [animate]);
 
     const stop = useCallback(() => {
-      animate(
-        ".pen-group",
-        { x: 0, y: 0, rotate: 0 },
-        { duration: 0.2, ease: "easeInOut" },
-      );
+      animate(".pen-group", { x: 0, y: 0, rotate: 0 }, { duration: 0.2, ease: "easeInOut" });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({

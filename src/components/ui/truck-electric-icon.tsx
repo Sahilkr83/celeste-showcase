@@ -3,10 +3,7 @@ import type { AnimatedIconHandle, AnimatedIconProps } from "./types";
 import { motion, useAnimate } from "motion/react";
 
 const TruckElectricIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
-  (
-    { size = 24, color = "currentColor", strokeWidth = 2, className = "" },
-    ref,
-  ) => {
+  ({ size = 24, color = "currentColor", strokeWidth = 2, className = "" }, ref) => {
     const [scope, animate] = useAnimate();
 
     const start = useCallback(async () => {
@@ -47,11 +44,7 @@ const TruckElectricIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     }, [animate]);
 
     const stop = useCallback(() => {
-      animate(
-        ".truck",
-        { x: 0, opacity: 1 },
-        { duration: 0.2, ease: "easeOut" },
-      );
+      animate(".truck", { x: 0, opacity: 1 }, { duration: 0.2, ease: "easeOut" });
     }, [animate]);
 
     useImperativeHandle(ref, () => ({
