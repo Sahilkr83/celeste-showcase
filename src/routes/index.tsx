@@ -24,7 +24,7 @@ import { AnimatedCounter } from "@/components/AnimatedCounter";
 import HeroImg from "@/assets/heroOfHome.png";
 import EditImg from "@/assets/editingSection.png";
 import { SectionTitle } from "@/components/SectionTitle";
-import { FeaturedProjectsSection } from "@/components/FeaturedProject";
+import { FeaturedProjectsSection } from "@/components/featuredProject";
 import { MyProcessSection } from "@/components/myProcessSection";
 
 export const Route = createFileRoute("/")({
