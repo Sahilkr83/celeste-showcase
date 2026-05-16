@@ -15,9 +15,17 @@ import {
   AudioLines,
   Layers,
   Figma,
+  MoveRight,
+  Star,
+  Quote,
 } from "lucide-react";
 import { LinkButton, Button } from "@/components/Button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
+import HeroImg from "@/assets/heroOfHome.png";
+import EditImg from "@/assets/editingSection.png";
+import { SectionTitle } from "@/components/SectionTitle";
+import { FeaturedProjectsSection } from "@/components/FeaturedProject";
+import { MyProcessSection } from "@/components/myProcessSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,9 +45,13 @@ function Home() {
   return (
     <>
       <Hero />
-      <VideoShowcase />
-      <TrustedLogos />
-      <Stats />
+      {/* <Testimonials/> */}
+      <ServicesElevateBrandSection/>
+      <FeaturedProjectsSection/>
+      <MyProcessSection />
+
+      {/* <TrustedLogos /> */}
+      {/* <Stats /> */}
     </>
   );
 }
@@ -48,19 +60,20 @@ function Home() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden w-full">
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute top-40 right-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 pt-20 pb-24 lg:pt-28 lg:pb-32">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
+      <div className="mx-auto flex flex-col items-center w-full px-6 pt-10 ">
+        <div className="flex items-center justify-center w-full gap-16 pb-20">
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="max-w-md"
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
               <span className="relative flex h-2 w-2">
@@ -70,16 +83,16 @@ function Hero() {
               Available For Freelance
             </span>
 
-            <h1 className="mt-6 text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tighter text-foreground leading-[1.02]">
+            <h1 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-foreground leading-[1.02]">
               Designs that <span className="text-primary">inspire.</span>
               <br />
               Edits that make an <span className="text-primary">impact.</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              I'm Aman Kapoor — a multidisciplinary designer & video editor
-              crafting premium visuals and cinematic stories for forward-thinking
-              brands across the globe.
+              We are Zentrix Fintech — a creative digital agency blending strategy, cinematic
+              storytelling, and cutting-edge design to help modern brands stand out, connect deeply,
+              and grow with impact across the digital world.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -120,6 +133,8 @@ function Hero() {
             <WorkspaceMockup />
           </motion.div>
         </div>
+        {/* <VideoEditingSection /> */}
+        <VideoShowcase />
       </div>
     </section>
   );
@@ -129,78 +144,29 @@ function WorkspaceMockup() {
   return (
     <div className="relative">
       {/* glow */}
-      <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-2xl" />
+      <div className="absolute -inset-6 rounded-[1.5rem] bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-2xl z-20" />
 
       {/* desktop frame */}
       <motion.div
         whileHover={{ y: -6 }}
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
-        className="relative rounded-[2rem] border border-border bg-card shadow-2xl overflow-hidden"
+        className="relative rounded-[1.5rem] border border-border bg-card shadow-2xl overflow-hidden"
       >
-        {/* browser chrome */}
-        <div className="flex items-center gap-2 border-b border-border bg-muted/40 px-4 py-3">
-          <span className="h-3 w-3 rounded-full bg-red-400/80" />
-          <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
-          <span className="h-3 w-3 rounded-full bg-green-400/80" />
-          <div className="ml-3 hidden sm:flex h-5 flex-1 items-center rounded-md bg-background px-3 text-[10px] text-muted-foreground">
-            amankapoor.studio/work
-          </div>
-        </div>
-
-        {/* mock canvas */}
-        <div className="relative aspect-[4/3] bg-gradient-to-br from-background via-muted/30 to-background p-5">
-          {/* sidebar tools */}
-          <div className="absolute left-4 top-4 bottom-4 w-12 rounded-2xl border border-border bg-background/80 backdrop-blur p-2 flex flex-col items-center gap-3">
-            {[Figma, Layers, Palette, Wand2, Film].map((Icon, i) => (
-              <div
-                key={i}
-                className={`flex h-8 w-8 items-center justify-center rounded-lg ${
-                  i === 0 ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-              </div>
-            ))}
-          </div>
-
-          {/* canvas content */}
-          <div className="ml-16 grid h-full grid-cols-6 grid-rows-4 gap-2">
-            <div className="col-span-4 row-span-3 rounded-xl bg-gradient-to-br from-primary/80 to-primary/40 relative overflow-hidden">
-              <div className="absolute bottom-3 left-3 text-primary-foreground">
-                <div className="text-[10px] uppercase tracking-widest opacity-80">Project 01</div>
-                <div className="text-lg font-semibold leading-tight">Lumen Studio</div>
-              </div>
-            </div>
-            <div className="col-span-2 row-span-2 rounded-xl bg-foreground/90" />
-            <div className="col-span-2 row-span-1 rounded-xl bg-muted" />
-            <div className="col-span-3 row-span-1 rounded-xl bg-muted" />
-            <div className="col-span-3 row-span-1 rounded-xl bg-foreground/10" />
-          </div>
-        </div>
+        <img
+          src={HeroImg}
+          alt="Workspace Mockup"
+          width={1024}
+          height={700}
+          className="h-[24rem] sm:h-[29rem] w-[34rem] sm:w-[48rem] max-w-none"
+        />
       </motion.div>
-
-      {/* AK neon logo badge */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
-        animate={{ opacity: 1, scale: 1, rotate: -6 }}
-        transition={{ delay: 0.5, type: "spring" }}
-        className="absolute -top-6 -left-6 sm:-left-10"
-      >
-        <div className="relative">
-          <div className="absolute inset-0 rounded-2xl bg-primary blur-xl opacity-60" />
-          <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-foreground text-2xl font-bold text-primary shadow-2xl ring-1 ring-primary/40">
-            AK
-          </div>
-        </div>
-      </motion.div>
-
       {/* floating glassmorphism service card */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
         whileHover={{ y: -4 }}
-        className="absolute -bottom-8 -right-4 sm:-right-8 w-60 rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl p-4 shadow-2xl"
+        className="absolute bottom-8 -left-10 sm:-right-8 w-60 rounded-2xl border border-white/40 bg-white backdrop-blur-xl p-4 shadow-2xl z-30"
       >
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
@@ -223,67 +189,162 @@ function WorkspaceMockup() {
 
 function VideoShowcase() {
   const features = [
-    { icon: Film, title: "Cinematic Edits", desc: "Story-driven cuts with film-grade pacing." },
-    { icon: Wand2, title: "Smooth Transitions", desc: "Seamless motion that flows like silk." },
-    { icon: Palette, title: "Color Grading", desc: "Hollywood-style LUTs and bespoke looks." },
-    { icon: AudioLines, title: "Audio Sync", desc: "Frame-perfect sound design and mixing." },
+    {
+      icon: Film,
+      title: "Cinematic Edits",
+      desc: "Story-driven cuts with film-grade pacing.",
+    },
+    {
+      icon: Wand2,
+      title: "Smooth Transitions",
+      desc: "Seamless motion that flows naturally.",
+    },
+    {
+      icon: Palette,
+      title: "Color Grading",
+      desc: "Rich cinematic tones with premium finishing.",
+    },
+    {
+      icon: AudioLines,
+      title: "Audio Sync",
+      desc: "Clean sound design with precise timing.",
+    },
   ];
 
   return (
-    <section className="mx-auto mt-20 max-w-7xl px-6">
-      <div className="relative overflow-hidden rounded-[2.5rem] bg-[#0a0a14] p-8 sm:p-12 lg:p-16 text-white">
-        {/* gradient lights */}
-        <div className="pointer-events-none absolute -top-32 -left-20 h-96 w-96 rounded-full bg-[#7c3aed] opacity-40 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 -right-20 h-96 w-96 rounded-full bg-[#2563eb] opacity-40 blur-3xl" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_60%)]" />
+    <section className="w-full flex items-center justify-center">
+      <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0a0a14] px-6 py-10 sm:px-8 lg:px-12">
+        {/* Background Effects */}
+        <div className="pointer-events-none absolute -top-32 left-0 h-96 w-96 rounded-full bg-violet-600/30 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-600/20 blur-3xl" />
 
-        <div className="relative grid gap-12 lg:grid-cols-2 lg:items-center">
-          {/* Left: copy + features */}
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur">
-              <Film className="h-3 w-3 text-[#a78bfa]" />
+        <div className="relative flex gap-16 items-center">
+          {/* LEFT CONTENT */}
+          <div className="max-w-md">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70 backdrop-blur">
+              <Film className="h-3.5 w-3.5 text-violet-400" />
               Video Editing Showcase
-            </span>
-            <h2 className="mt-6 text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05]">
-              Cinematic edits that
+            </div>
+
+            <h2 className="mt-6 text-3xl font-bold leading-tight text-white sm:text-4xl">
+              Edit with purpose.
               <br />
-              move people.
+              Create <span className="text-violet-400">stories</span> that
+              people remember.
             </h2>
-            <p className="mt-5 max-w-md text-white/60 leading-relaxed">
-              From short-form social to longform brand films — every frame is
-              cut, color-graded and mixed to feel cinematic.
+
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-white/60 sm:text-base">
+              From raw footage to polished cinematic experiences, we craft
+              engaging videos that elevate brands, capture attention, and leave
+              a lasting impact across every platform.
             </p>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {/* FEATURES */}
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
               {features.map((f, i) => (
                 <motion.div
                   key={f.title}
-                  initial={{ opacity: 0, y: 16 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
                   whileHover={{ y: -3 }}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur hover:bg-white/[0.06] transition"
+                  className="flex items-start gap-3"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-[#a78bfa] to-[#3b82f6] text-white">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white">
                     <f.icon className="h-4 w-4" />
                   </div>
-                  <div className="mt-3 font-medium">{f.title}</div>
-                  <div className="text-xs text-white/55 mt-1">{f.desc}</div>
+
+                  <div>
+                    <p className="text-sm font-semibold text-white">
+                      {f.title}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-white/55">
+                      {f.desc}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>
+
+            {/* BUTTON */}
+            <div className="mt-10">
+              <button className="group flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.02]">
+                Explore Edits
+                <MoveRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+            </div>
           </div>
 
-          {/* Right: laptop with timeline */}
+          {/* RIGHT IMAGE */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative flex justify-center max-w-7xl"
           >
-            <LaptopEditor />
+            {/* Glow */}
+            <div className="absolute inset-0 rounded-[2rem] bg-violet-500/10 blur-2xl" />
+
+            {/* Image Container */}
+            <div className="relative flex items-center justify-center max-w-2xl">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 blur-3xl rounded-full" />
+
+            <div className="relative w-full max-w-3xl rounded-[1.5rem] border border-white/10 bg-[#070B18]/90 backdrop-blur-2xl overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.5)]">
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-white/[0.03]">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-400" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-400" />
+                </div>
+
+                <p className="text-white/70 text-sm">Cinematic Travel Edit</p>
+
+                <div className="w-8" />
+              </div>
+
+              <div className="relative aspect-video overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1600&auto=format&fit=crop"
+                  alt="Video Editing Showcase"
+                  className="w-full h-full object-cover"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+
+                <button className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center hover:scale-110 transition-transform">
+                    <div className="ml-1 w-0 h-0 border-y-[14px] border-y-transparent border-l-[22px] border-l-white" />
+                  </div>
+                </button>
+              </div>
+
+              <div className="p-5 space-y-4">
+                <div className="flex items-center justify-between text-white/60 text-sm">
+                  <span>00:00:12:15</span>
+                  <span>4K Ultra HD</span>
+                </div>
+
+                <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div className="w-2/3 h-full bg-gradient-to-r from-purple-500 to-blue-500" />
+                </div>
+
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1493246318656-5bfd4cfb29b8?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=800&auto=format&fit=crop',
+                  ].map((img, i) => (
+                    <div key={i} className="aspect-video rounded-xl overflow-hidden border border-white/10">
+                      <img src={img} alt="preview" className="w-full h-full object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
           </motion.div>
         </div>
       </div>
@@ -291,77 +352,126 @@ function VideoShowcase() {
   );
 }
 
-function LaptopEditor() {
+
+function ServicesElevateBrandSection() {
+  const services = [
+    {
+      title: 'Graphic Design',
+      desc: 'Logos, branding, print & digital visuals that communicate your message clearly.',
+      gradient: 'from-blue-500 to-cyan-400',
+    },
+    {
+      title: 'Video Editing',
+      desc: 'Professional edits that turn raw footage into engaging cinematic stories.',
+      gradient: 'from-purple-500 to-pink-500',
+    },
+    {
+      title: 'Brand Identity',
+      desc: 'Complete identity systems that help your business stand out beautifully.',
+      gradient: 'from-emerald-500 to-teal-400',
+    },
+    {
+      title: 'Social Media Design',
+      desc: 'High-performing social creatives optimized for engagement and growth.',
+      gradient: 'from-orange-500 to-pink-500',
+    },
+  ];
+
   return (
-    <div className="relative">
-      <div className="absolute -inset-10 bg-gradient-to-tr from-[#7c3aed]/30 to-[#3b82f6]/30 blur-3xl rounded-full" />
-      {/* laptop screen */}
-      <div className="relative rounded-2xl border border-white/15 bg-[#0d0d1a] shadow-2xl overflow-hidden">
-        {/* top bar */}
-        <div className="flex items-center gap-1.5 border-b border-white/10 px-3 py-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
-          <span className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
-          <span className="ml-3 text-[10px] text-white/40">Final Cut — brand_film_v07.mov</span>
+    <section className="w-full px-6 md:px-10 py-20  overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-[0.25em] uppercase border border-blue-100">
+            What We Do
+          </span>
+
+          <h2 className="mt-6 text-4xl md:text-6xl font-black text-slate-900 leading-[1]">
+            Services That Elevate
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              {' '}Your Brand
+            </span>
+          </h2>
+
+          <p className="mt-6 text-slate-500 text-lg leading-relaxed">
+            Powerful design and editing solutions crafted to help brands stand out,
+            connect with audiences, and grow with confidence.
+          </p>
         </div>
 
-        {/* preview */}
-        <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-[#1e1b4b] via-[#312e81] to-[#0c4a6e]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(167,139,250,0.4),transparent_50%)]" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.button
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 text-[#0a0a14] shadow-2xl"
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+          {services.map((service, i) => (
+            <div
+              key={i}
+              className="group relative rounded-[32px] border border-slate-200 bg-white p-7 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
             >
-              <Play className="h-6 w-6 fill-current ml-0.5" />
-            </motion.button>
-          </div>
-          <div className="absolute bottom-3 left-3 text-xs text-white/70">
-            01:24 / 03:48
-          </div>
-          <div className="absolute bottom-3 right-3 rounded-md bg-black/40 backdrop-blur px-2 py-1 text-[10px] text-white/80 uppercase tracking-wider">
-            4K · ProRes
-          </div>
-        </div>
+              <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${service.gradient} opacity-10 blur-3xl rounded-full`} />
 
-        {/* timeline */}
-        <div className="border-t border-white/10 bg-[#070710] p-3 space-y-1.5">
-          {[
-            { c: "from-[#a78bfa] to-[#7c3aed]", w: "w-3/4" },
-            { c: "from-[#3b82f6] to-[#1d4ed8]", w: "w-1/2" },
-            { c: "from-[#22d3ee] to-[#0891b2]", w: "w-2/3" },
-          ].map((t, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <span className="text-[9px] text-white/40 w-6">V{i + 1}</span>
-              <div className="flex-1 h-4 rounded-md bg-white/5 overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.2 + i * 0.15 }}
-                  className={`h-full ${t.w} bg-gradient-to-r ${t.c} rounded-md`}
-                />
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} p-[1px]`}>
+                <div className="w-full h-full rounded-2xl bg-white flex items-center justify-center">
+                  <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${service.gradient}`} />
+                </div>
               </div>
+
+              <h3 className="mt-8 text-2xl font-bold text-slate-900">
+                {service.title}
+              </h3>
+
+              <p className="mt-4 text-slate-500 leading-relaxed text-base">
+                {service.desc}
+              </p>
+
+              <button className="mt-8 inline-flex items-center gap-3 text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                Learn More
+                <span className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
+                  →
+                </span>
+              </button>
+
+              <div className="absolute inset-0 rounded-[32px] border border-transparent group-hover:border-blue-200 transition-all duration-500 pointer-events-none" />
             </div>
           ))}
-          <div className="flex items-center gap-2 pt-1">
-            <span className="text-[9px] text-white/40 w-6">A1</span>
-            <div className="flex-1 h-3 rounded-md bg-white/5 flex items-center gap-px px-1">
-              {Array.from({ length: 40 }).map((_, i) => (
-                <span
-                  key={i}
-                  className="flex-1 bg-[#22d3ee]/60 rounded-sm"
-                  style={{ height: `${20 + Math.abs(Math.sin(i)) * 70}%` }}
-                />
-              ))}
+        </div>
+
+        <div className="mt-20 rounded-[40px] bg-gradient-to-r from-[#0B1023] via-[#111827] to-[#1B0D36] overflow-hidden relative p-10 md:p-14">
+          <div className="absolute top-0 left-0 w-72 h-72 bg-blue-600/20 blur-3xl rounded-full" />
+          <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-600/20 blur-3xl rounded-full" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10">
+            <div className="max-w-2xl">
+              <span className="inline-flex px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/70 text-xs tracking-[0.25em] uppercase">
+                Creative Solutions
+              </span>
+
+              <h3 className="mt-6 text-4xl md:text-5xl font-black text-white leading-tight">
+                Helping brands create
+                <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                  {' '}impactful experiences.
+                </span>
+              </h3>
+
+              <p className="mt-5 text-white/60 text-lg leading-relaxed">
+                From strategy and branding to cinematic edits and social media visuals,
+                every project is crafted with precision and creativity.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-lg shadow-blue-500/20 hover:scale-105 transition-transform">
+                Start a Project
+              </button>
+
+              <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/5 text-white font-semibold hover:bg-white/10 transition">
+                View Portfolio
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
+
+
 
 /* ───────────────────────── TRUSTED LOGOS ───────────────────────── */
 
@@ -412,12 +522,90 @@ function Stats() {
             <div className="text-5xl font-semibold tracking-tight text-foreground">
               <AnimatedCounter value={s.value} suffix={s.suffix} />
             </div>
-            <div className="mt-3 text-sm font-medium text-muted-foreground">
-              {s.label}
-            </div>
+            <div className="mt-3 text-sm font-medium text-muted-foreground">{s.label}</div>
           </motion.div>
         ))}
       </div>
     </section>
   );
 }
+
+const items = [
+  { q: "Aman shipped a brand and product launch in 6 weeks. Best design hire we've ever made.", a: "Mira Chen", r: "CEO, Lumen", initials: "MC", color: "from-blue-200 to-indigo-300" },
+  { q: "Pixel-perfect, fast, and ridiculously thoughtful. Every detail was considered.", a: "Daniel Park", r: "Head of Product, Orbit", initials: "DP", color: "from-emerald-200 to-teal-300" },
+  { q: "He doesn't just design — he thinks like a founder. Rare combination.", a: "Sasha Reyes", r: "Founder, Maison Clay", initials: "SR", color: "from-amber-200 to-orange-300" },
+  { q: "The most polished work we've ever shipped. Our conversion doubled.", a: "Ethan Wells", r: "CMO, Northwave", initials: "EW", color: "from-rose-200 to-pink-300" },
+  { q: "Working with AK felt like adding a senior designer to our founding team.", a: "Lina Ortiz", r: "COO, Pulse Health", initials: "LO", color: "from-violet-200 to-fuchsia-300" },
+  { q: "Editorial-grade work, indie-studio energy. We will absolutely hire again.", a: "Tomás Alvarez", r: "Director, Atlas", initials: "TA", color: "from-cyan-200 to-sky-300" },
+];
+
+function Card({ t }: { t: (typeof items)[number] }) {
+  return (
+    <div className="w-[340px] sm:w-[420px] shrink-0 rounded-3xl glass gradient-border p-7 hover-glow mx-3">
+      <Quote className="h-7 w-7 text-primary" />
+      <p className="mt-5 text-base leading-relaxed text-foreground">"{t.q}"</p>
+      <div className="mt-7 flex items-center justify-between border-t border-border/60 pt-5">
+        <div className="flex items-center gap-3">
+          <div className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${t.color} text-sm font-semibold text-foreground/80`}>
+            {t.initials}
+          </div>
+          <div>
+            <div className="text-sm font-semibold">{t.a}</div>
+            <div className="text-xs text-muted-foreground">{t.r}</div>
+          </div>
+        </div>
+        <div className="flex gap-0.5 text-primary">
+          {Array.from({ length: 5 }).map((_, j) => (
+            <Star key={j} className="h-3.5 w-3.5 fill-current" />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Testimonials() {
+  const row1 = [...items, ...items];
+  const row2 = [...items.slice().reverse(), ...items.slice().reverse()];
+
+  return (
+    <div className="py-24">
+      <div className="mx-auto max-w-7xl ">
+        <SectionTitle eyebrow="Testimonials" title="Trusted by teams who ship." subtitle="Hover to pause the marquee." />
+      </div>
+
+      <div className="mt-16 space-y-6 ">
+        {[row1, row2].map((row, idx) => (
+          <div key={idx} className="relative overflow-hidden">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
+            <div
+              className="marquee-track flex w-max"
+              style={{ animationDirection: idx === 1 ? "reverse" : "normal", animationDuration: idx === 1 ? "55s" : "45s" }}
+            >
+              {row.map((t, i) => (
+                <Card key={`${idx}-${i}`} t={t} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mx-auto mt-20 max-w-4xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative overflow-hidden rounded-3xl bg-foreground text-background p-12 text-center"
+        >
+          <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/40 blur-3xl" />
+          <div className="relative">
+            <h3 className="text-3xl md:text-4xl font-semibold">Your story, told beautifully.</h3>
+            <p className="mt-3 text-background/70">Let's create work worth sharing.</p>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
