@@ -30,7 +30,7 @@ import { MyProcessSection } from "@/components/myProcessSection";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Aman Kapoor — Designer & Video Editor" },
+      { title: "Zenrix" },
       {
         name: "description",
         content:
