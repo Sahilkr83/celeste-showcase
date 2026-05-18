@@ -21,6 +21,9 @@ import {
   PenTool,
   Grid2X2,
   Layers3,
+  ImageIcon,
+  Type,
+  Clapperboard,
 } from "lucide-react";
 import { LinkButton, Button } from "@/components/Button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
@@ -93,213 +96,257 @@ export function Hero({ variant = "default" }: Props) {
   ];
 
   return (
-    <section className="relative overflow-hidden w-full">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute top-40 right-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-      </div>
+    <section className="relative overflow-hidden w-full bg-[#F8FAFF]">
+  
+  {/* BACKGROUND */}
+  <div className="absolute inset-0 overflow-hidden">
+    
+    {/* Gradient Glow */}
+    <div className="absolute top-0 left-0 w-[40rem] h-[40rem] bg-blue-500/10 blur-3xl rounded-full" />
 
-      <div className="mx-auto flex flex-col items-center w-full px-6 pt-10 ">
-        <div className="flex items-center justify-center w-full gap-16 pb-20">
-          {/* LEFT */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className={`${isHero ? "max-w-md" : "max-w-lg"} flex flex-col items-start h-full`}
-          >
-            {!isHero && (
-              <Breadcrumb className="mb-20">
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink href="/" className="text-black transition-colors">
-                      Home
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
+    <div className="absolute bottom-0 right-0 w-[35rem] h-[35rem] bg-purple-500/10 blur-3xl rounded-full" />
 
-                  <BreadcrumbSeparator className="text-black" />
+    {/* Grid */}
+    <div
+      className="absolute inset-0 opacity-[0.03]"
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)",
+        backgroundSize: "60px 60px",
+      }}
+    />
+  </div>
 
-                  <BreadcrumbItem>
-                    <BreadcrumbLink href="/work" className="text-black transition-colors">
-                      Work
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
+  <div className="relative z-10 max-w-7xl mx-auto px-6 pt-10 pb-24">
+    
+    {/* HERO */}
+    <div className="grid lg:grid-cols-2 gap-14 items-center min-h-[85vh]">
+      
+      {/* LEFT */}
+      <motion.div
+        initial={{ opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-xl"
+      >
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
 
-                  <BreadcrumbSeparator className="text-black" />
-
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-medium">
-                      Graphic Design
-                    </BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            )}
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-                </span>
-                {isHero ? "Available For Freelance" : "Graphic Design"}
-              </span>
-
-              <h1 className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter text-foreground leading-[1.02]">
-                {!isHero ? (
-                  <p>
-                    Visuals <span className="text-primary">that</span>
-                    <br />
-                    speaks your <span className="text-primary">Brand</span>{" "}
-                  </p>
-                ) : (
-                  <p>
-                    Designs that <span className="text-primary">inspire.</span>
-                    <br />
-                    Edits that make an <span className="text-primary">impact.</span>{" "}
-                  </p>
-                )}
-              </h1>
-
-              {isHero ? (
-                <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-                  We are Zentrix Fintech — a creative digital agency blending strategy, cinematic
-                  storytelling, and cutting-edge design to help modern brands stand out, connect
-                  deeply, and grow with impact across the digital world.
-                </p>
-              ) : (
-                <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-                  We design clean, modern,and memorable visuals that communicate your message and
-                  leave a lasting impression.
-                </p>
-              )}
-
-              {isHero ? (
-                <div>
-                  <div className="mt-8 flex flex-wrap items-center gap-3">
-                    <LinkButton to="/contact" variant="primary" arrow>
-                      Hire Me
-                    </LinkButton>
-                    <Button
-                      onClick={() =>
-                        (window.location.href = "http://localhost:8080/work/graphic-design")
-                      }
-                      variant="ghost"
-                    >
-                      <Play className="h-4 w-4 fill-current" />
-                      Watch Showreel
-                    </Button>
-                  </div>
-                  <div className="mt-10 flex items-center gap-3">
-                    <span className="text-xs uppercase tracking-widest text-muted-foreground">
-                      Follow
-                    </span>
-                    <span className="h-px w-10 bg-border" />
-                    {[Twitter, Instagram, Dribbble, Linkedin, Github].map((Icon, i) => (
-                      <motion.a
-                        key={i}
-                        href="#"
-                        whileHover={{ y: -3 }}
-                        className="rounded-full border border-border bg-background p-2.5 text-muted-foreground hover:text-primary hover:border-primary/40 transition"
-                      >
-                        <Icon className="h-4 w-4" />
-                      </motion.a>
-                    ))}
-                  </div>{" "}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-8">
-                  {features.map((feature, i) => {
-                    const Icon = feature.icon;
-
-                    return (
-                      <div key={i} className="flex flex-col">
-                        {/* Icon Box */}
-                        <div className="w-12 h-12 rounded-md bg-[#F4F7FF] flex items-center justify-center shadow-sm">
-                          <Icon className="w-6 h-6 text-blue-600 stroke-[2]" />
-                        </div>
-
-                        {/* Title */}
-                        <h3 className="mt-5 text-base font-semibold text-slate-900 ">
-                          {feature.title}
-                        </h3>
-
-                        {/* Description */}
-                        <p className="mt-2 text-slate-500 leading-relaxed text-sm max-w-[220px]">
-                          {feature.desc}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </motion.div>
-
-          {/* RIGHT — workspace mockup */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative"
-          >
-            <div className="relative">
-              {/* glow */}
-              <div className="absolute -inset-6 rounded-[1.5rem] bg-gradient-to-tr from-primary/20 via-primary/5 to-transparent blur-2xl z-20" />
-
-              {/* desktop frame */}
-              <motion.div
-                whileHover={{ y: -6 }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="relative rounded-[1.5rem]  overflow-hidden"
-              >
-                {isHero ? (
-                  <img
-                    src={HeroImg}
-                    alt="Workspace Mockup"
-                    width={1024}
-                    height={700}
-                    className="h-[24rem] sm:h-[29rem] w-[34rem] sm:w-[48rem] max-w-none"
-                  />
-                ) : (
-                  <img
-                    src={HeroImg2}
-                    alt="Workspace Mockup"
-                    width={1024}
-                    height={700}
-                    className="h-[24rem] sm:h-[32rem] w-[34rem] sm:w-[45rem] max-w-none"
-                  />
-                )}
-              </motion.div>
-              {/* floating glassmorphism service card */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                whileHover={{ y: -4 }}
-                className="absolute bottom-8 -left-10 sm:-right-8 w-60 rounded-2xl border border-white/40 bg-white backdrop-blur-xl p-4 shadow-2xl z-30"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                    <Sparkles className="h-5 w-5" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-xs text-muted-foreground">Now Booking</div>
-                    <div className="text-sm font-semibold text-foreground">
-                      Brand & Motion Design
-                    </div>
-                    <div className="mt-2 flex items-center gap-1 text-xs font-medium text-primary">
-                      View packages <ArrowUpRight className="h-3 w-3" />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+          <span className="text-sm font-medium text-slate-600">
+            Creative Design Studio
+          </span>
         </div>
-        {/* <VideoEditingSection /> */}
-        {isHero && <VideoShowcase variant="hero" />}
-      </div>
-    </section>
+
+        {/* Heading */}
+        <h1 className="mt-8 text-5xl lg:text-7xl font-black leading-[0.95] tracking-tight text-slate-900">
+          Designs that{" "}
+          <span className="text-blue-600">inspire.</span>
+
+          <br />
+
+          Edits that make an{" "}
+          <span className="text-blue-600">impact.</span>
+        </h1>
+
+        {/* Desc */}
+        <p className="mt-8 text-lg leading-relaxed text-slate-500 max-w-lg">
+          I'm Aman Keshri, a creative designer & video editor crafting
+          stunning visuals and cinematic edits that help brands grow
+          and stand out.
+        </p>
+
+        {/* Buttons */}
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          
+          <button className="h-14 px-8 rounded-2xl bg-blue-600 text-white font-semibold shadow-xl shadow-blue-500/20 hover:scale-105 transition-all">
+            View My Work →
+          </button>
+
+          <button className="h-14 px-6 rounded-2xl border border-slate-200 bg-white text-slate-700 font-medium hover:border-blue-200 hover:text-blue-600 transition-all flex items-center gap-3 shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+              <Play className="w-4 h-4 fill-blue-600 text-blue-600 ml-0.5" />
+            </div>
+
+            Watch Showreel
+          </button>
+        </div>
+
+        {/* Stats */}
+        <div className="mt-14 flex items-center gap-10">
+          
+          <div className="flex items-center gap-3">
+            <div className="flex -space-x-3">
+              {[1, 2, 3].map((i) => (
+                <img
+                  key={i}
+                  src={`https://i.pravatar.cc/100?img=${i + 10}`}
+                  className="w-11 h-11 rounded-full border-2 border-white"
+                />
+              ))}
+            </div>
+
+            <div>
+              <div className="text-lg font-bold text-slate-900">
+                50+
+              </div>
+
+              <div className="text-sm text-slate-500">
+                Happy Clients Worldwide
+              </div>
+            </div>
+          </div>
+
+          <div className="w-px h-14 bg-slate-200" />
+
+          <div>
+            <div className="text-lg font-bold text-slate-900">
+              5+
+            </div>
+
+            <div className="text-sm text-slate-500">
+              Years of Experience
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* RIGHT */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="relative flex items-center justify-center"
+      >
+        
+        {/* Dotted Lines */}
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 800 600"
+          fill="none"
+        >
+          <motion.path
+            d="M150 100C250 50 350 200 450 150C550 100 650 180 720 120"
+            stroke="#93C5FD"
+            strokeWidth="2"
+            strokeDasharray="6 10"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+          />
+        </svg>
+
+        {/* Floating Icons */}
+        {[
+          {
+            icon: <PenTool className="w-6 h-6 text-blue-600" />,
+            className: "top-0 left-24",
+          },
+          {
+            icon: <ImageIcon className="w-6 h-6 text-slate-500" />,
+            className: "top-16 right-16",
+          },
+          {
+            icon: <Type className="w-6 h-6 text-slate-500" />,
+            className: "bottom-24 left-16",
+          },
+          {
+            icon: <Clapperboard className="w-6 h-6 text-slate-500" />,
+            className: "top-40 right-0",
+          },
+          {
+            icon: <Play className="w-6 h-6 text-slate-500" />,
+            className: "top-36 left-0",
+          },
+        ].map((item, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -10, 0],
+            }}
+            transition={{
+              duration: 4 + i,
+              repeat: Infinity,
+            }}
+            className={`absolute ${item.className} z-30`}
+          >
+            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl border border-white/70 backdrop-blur-xl flex items-center justify-center">
+              {item.icon}
+            </div>
+          </motion.div>
+        ))}
+
+        {/* Monitor */}
+        <motion.div
+          animate={{
+            y: [0, -10, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+          }}
+          className="relative z-20"
+        >
+          
+          {/* Glow */}
+          <div className="absolute -inset-10  " />
+
+          {/* Image */}
+          <div className="relative overflow-hidden ]">
+            <img
+              src={HeroImg}
+              alt=""
+              className="w-[42rem] object-cover"
+            />
+          </div>
+        </motion.div>
+
+        {/* Floating Card */}
+        <motion.div
+          animate={{
+            y: [0, -8, 0],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+          }}
+          className="absolute bottom-12 left-10 z-30 w-64 rounded-3xl bg-white/90 backdrop-blur-2xl border border-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] p-5"
+        >
+          <div className="flex items-start gap-4">
+            
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
+              <Sparkles className="w-6 h-6 text-blue-600" />
+            </div>
+
+            <div>
+              <div className="text-sm font-semibold text-slate-900">
+                Brand & Identity Design
+              </div>
+
+              <div className="mt-1 text-xs text-slate-500">
+                Premium creative solutions
+              </div>
+
+              <div className="mt-3 flex -space-x-3">
+                {[1, 2, 3, 4].map((i) => (
+                  <img
+                    key={i}
+                    src={`https://i.pravatar.cc/100?img=${i + 20}`}
+                    className="w-8 h-8 rounded-full border-2 border-white"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  </div>
+</section>
   );
 }
 

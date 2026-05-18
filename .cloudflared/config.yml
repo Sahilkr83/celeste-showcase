@@ -1,0 +1,7 @@
+tunnel: c5949dde-8948-4455-b0f6-3d0dd86e27f7
+credentials-file: A:\WebApp\Project with shivv\celeste-showcase\.cloudflared\c5949dde-8948-4455-b0f6-3d0dd86e27f7.json
+
+ingress:
+  - hostname: zentrixfintech.me
+    service: http://localhost:8080
+  - service: http_status:404
