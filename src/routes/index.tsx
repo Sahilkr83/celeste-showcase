@@ -77,21 +77,93 @@ function Home() {
 
 export function Hero({ variant = "default" }: Props) {
   return (
-    <section className="relative overflow-hidden w-full bg-gradient-to-b from-[#F6F8FF] via-[#F8FAFF] to-white min-h-[90vh]">
-      {/* BACKGROUND */}
+    <section className="relative overflow-hidden w-full min-h-[90vh] bg-[#F4F6FD]">
+      {/* WAVY MESH BACKGROUND */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Base soft gradient */}
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#F2F5FF_0%,#F8F9FE_45%,#FBFAFF_100%)]" />
+
+        {/* Flowing SVG mesh waves */}
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <defs>
+            <linearGradient id="wave1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#93C5FD" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#93C5FD" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="wave2" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#C4B5FD" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#C4B5FD" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="wave3" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stopColor="#A5F3FC" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#DDD6FE" stopOpacity="0" />
+            </linearGradient>
+            <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="60" />
+            </filter>
+          </defs>
+
+          <motion.path
+            d="M0,260 C260,160 520,360 780,260 C1040,160 1240,300 1440,220 L1440,0 L0,0 Z"
+            fill="url(#wave1)"
+            filter="url(#softBlur)"
+            animate={{ d: [
+              "M0,260 C260,160 520,360 780,260 C1040,160 1240,300 1440,220 L1440,0 L0,0 Z",
+              "M0,300 C260,200 520,300 780,300 C1040,300 1240,220 1440,260 L1440,0 L0,0 Z",
+              "M0,260 C260,160 520,360 780,260 C1040,160 1240,300 1440,220 L1440,0 L0,0 Z",
+            ] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.path
+            d="M0,700 C300,580 600,800 900,680 C1140,580 1300,720 1440,640 L1440,900 L0,900 Z"
+            fill="url(#wave2)"
+            filter="url(#softBlur)"
+            animate={{ d: [
+              "M0,700 C300,580 600,800 900,680 C1140,580 1300,720 1440,640 L1440,900 L0,900 Z",
+              "M0,660 C300,720 600,620 900,720 C1140,800 1300,640 1440,700 L1440,900 L0,900 Z",
+              "M0,700 C300,580 600,800 900,680 C1140,580 1300,720 1440,640 L1440,900 L0,900 Z",
+            ] }}
+            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.path
+            d="M0,520 C320,420 640,600 960,500 C1180,440 1320,540 1440,480 L1440,900 L0,900 Z"
+            fill="url(#wave3)"
+            filter="url(#softBlur)"
+            opacity="0.7"
+            animate={{ d: [
+              "M0,520 C320,420 640,600 960,500 C1180,440 1320,540 1440,480 L1440,900 L0,900 Z",
+              "M0,480 C320,560 640,440 960,560 C1180,620 1320,460 1440,540 L1440,900 L0,900 Z",
+              "M0,520 C320,420 640,600 960,500 C1180,440 1320,540 1440,480 L1440,900 L0,900 Z",
+            ] }}
+            transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </svg>
+
+        {/* Blurred radial glows */}
         <motion.div
-          animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-40 -left-40 w-[44rem] h-[44rem] bg-blue-400/25 blur-[140px] rounded-full"
+          animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-44 -left-44 w-[46rem] h-[46rem] bg-blue-400/35 blur-[150px] rounded-full"
         />
         <motion.div
-          animate={{ x: [0, -50, 0], y: [0, -20, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-40 -right-40 w-[40rem] h-[40rem] bg-purple-400/25 blur-[140px] rounded-full"
+          animate={{ x: [0, -40, 0], y: [0, -30, 0] }}
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-52 -right-40 w-[42rem] h-[42rem] bg-purple-400/35 blur-[150px] rounded-full"
         />
+        <motion.div
+          animate={{ scale: [1, 1.08, 1], opacity: [0.6, 0.85, 0.6] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[55rem] h-[40rem] bg-gradient-to-r from-blue-200/30 via-indigo-200/30 to-purple-200/30 blur-[140px] rounded-full"
+        />
+
+        {/* Subtle grid */}
         <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage:
               "linear-gradient(to right, #0f172a 1px, transparent 1px), linear-gradient(to bottom, #0f172a 1px, transparent 1px)",
@@ -102,6 +174,9 @@ export function Hero({ variant = "default" }: Props) {
               "radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 75%)",
           }}
         />
+
+        {/* Vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(15,23,42,0.06)_100%)]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-24">
@@ -307,84 +382,29 @@ function WorkspaceScene() {
         </motion.div>
       ))}
 
-      {/* MONITOR + DESK */}
+      {/* WORKSPACE IMAGE */}
       <motion.div
-        animate={{ y: [0, -6, 0] }}
+        animate={{ y: [0, -8, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-0 flex flex-col items-center justify-center z-20"
+        className="absolute inset-0 flex items-center justify-center z-20"
       >
-        {/* Monitor */}
         <div className="relative">
-          {/* Glow behind monitor */}
-          <div className="absolute -inset-8 bg-gradient-to-br from-blue-400/30 via-indigo-300/20 to-purple-400/30 blur-3xl rounded-full" />
+          {/* Layered glow halos */}
+          <div className="absolute -inset-16 bg-gradient-to-br from-blue-400/35 via-indigo-300/25 to-purple-400/35 blur-[100px] rounded-full" />
+          <div className="absolute -inset-6 bg-gradient-to-tr from-cyan-300/25 via-transparent to-fuchsia-300/30 blur-3xl rounded-[3rem]" />
 
-          <div className="relative w-[420px] sm:w-[460px] rounded-[1.5rem] bg-gradient-to-b from-slate-800 to-slate-900 p-3 shadow-[0_30px_80px_-20px_rgba(15,23,42,0.4)]">
-            {/* Screen */}
-            <div className="relative aspect-[16/10] rounded-[1rem] bg-gradient-to-br from-[#fafbff] via-white to-[#f0f4ff] overflow-hidden">
-              {/* subtle gradient sheen */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/40 via-transparent to-purple-100/30" />
-              {/* top dot */}
-              <div className="absolute top-3 left-3 flex gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-red-400/70" />
-                <span className="w-2 h-2 rounded-full bg-yellow-400/70" />
-                <span className="w-2 h-2 rounded-full bg-green-400/70" />
-              </div>
+          {/* Soft ground shadow */}
+          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[80%] h-10 bg-slate-900/20 blur-2xl rounded-full" />
 
-              <div className="relative h-full flex items-center justify-center px-10">
-                <p className="text-3xl sm:text-4xl font-black leading-[1.05] tracking-tight text-slate-900 text-center">
-                  Good design
-                  <br />
-                  is good
-                  <br />
-                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    business.
-                  </span>
-                </p>
-              </div>
-
-              {/* corner accent */}
-              <div className="absolute bottom-3 right-4 flex items-center gap-1.5 text-[10px] font-medium text-slate-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                AK.Studio
-              </div>
-            </div>
-            {/* Stand notch */}
-            <div className="mx-auto mt-1 h-1.5 w-20 rounded-b-lg bg-slate-700" />
-          </div>
-
-          {/* Stand */}
-          <div className="mx-auto -mt-px h-8 w-2 bg-gradient-to-b from-slate-700 to-slate-600" style={{ width: "10px" }} />
-          <div className="mx-auto h-2 w-40 rounded-full bg-gradient-to-b from-slate-700 to-slate-500 shadow-lg" />
-        </div>
-
-        {/* Desk surface */}
-        <div className="relative mt-4 w-[92%] h-[120px] rounded-t-[2rem] bg-gradient-to-b from-[#e8eaf2] via-[#dfe3ee] to-[#cbd0dc] shadow-[inset_0_2px_0_rgba(255,255,255,0.7),0_20px_50px_-10px_rgba(15,23,42,0.25)]">
-            {/* keyboard */}
-            <div className="absolute top-5 left-1/2 -translate-x-1/2 w-[220px] h-[60px] rounded-xl bg-gradient-to-b from-white to-slate-100 shadow-md border border-slate-200/80 p-2">
-              <div className="grid grid-cols-12 gap-[3px] h-full">
-                {[...Array(36)].map((_, i) => (
-                  <div key={i} className="rounded-[3px] bg-slate-100 border border-slate-200/70" />
-                ))}
-              </div>
-            </div>
-            {/* mouse */}
-            <div className="absolute top-7 right-12 w-9 h-14 rounded-[12px] bg-gradient-to-b from-white to-slate-100 shadow-md border border-slate-200/80" />
-            {/* mug */}
-            <div className="absolute -top-8 left-10">
-              <div className="relative w-12 h-14 rounded-b-[10px] rounded-t-md bg-gradient-to-b from-white to-slate-100 border border-slate-200 shadow-md">
-                <div className="absolute -right-2 top-3 w-3 h-6 rounded-full border-2 border-slate-300" />
-                <div className="absolute inset-x-1 top-1 h-1 rounded-full bg-blue-500/70" />
-              </div>
-            </div>
-            {/* plant */}
-            <div className="absolute -top-12 right-8">
-              <div className="relative w-12 h-10 rounded-b-xl bg-gradient-to-b from-orange-200 to-orange-300 border border-orange-300/60" />
-              <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex gap-0.5">
-                <span className="block w-2 h-8 rounded-full bg-green-500 rotate-[-15deg]" />
-                <span className="block w-2 h-10 rounded-full bg-green-600" />
-                <span className="block w-2 h-8 rounded-full bg-green-500 rotate-[15deg]" />
-              </div>
-            </div>
+          {/* Image */}
+          <motion.img
+            src={HeroImg}
+            alt="Creative workspace"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-[36rem] sm:w-[40rem] lg:w-[44rem] max-w-full object-contain drop-shadow-[0_40px_60px_rgba(15,23,42,0.18)]"
+          />
         </div>
       </motion.div>
 
