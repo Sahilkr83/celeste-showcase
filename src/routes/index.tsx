@@ -76,277 +76,366 @@ function Home() {
 /* ───────────────────────── HERO ───────────────────────── */
 
 export function Hero({ variant = "default" }: Props) {
-  const isHero = variant === "hero";
-  const features = [
-    {
-      title: "Brand Focused",
-      desc: "Designs that reflect your identity.",
-      icon: PenTool,
-    },
-    {
-      title: "Creative Approach",
-      desc: "Unique ideas for maximum impact.",
-      icon: Grid2X2,
-    },
-    {
-      title: "Attention to Detail",
-      desc: "Pixel-perfect designs that stand out.",
-      icon: Layers3,
-    },
+  return (
+    <section className="relative overflow-hidden w-full bg-gradient-to-b from-[#F6F8FF] via-[#F8FAFF] to-white min-h-[90vh]">
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-40 -left-40 w-[44rem] h-[44rem] bg-blue-400/25 blur-[140px] rounded-full"
+        />
+        <motion.div
+          animate={{ x: [0, -50, 0], y: [0, -20, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-40 -right-40 w-[40rem] h-[40rem] bg-purple-400/25 blur-[140px] rounded-full"
+        />
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, #0f172a 1px, transparent 1px), linear-gradient(to bottom, #0f172a 1px, transparent 1px)",
+            backgroundSize: "56px 56px",
+            maskImage:
+              "radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 75%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 75%)",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-24">
+        <div className="grid lg:grid-cols-2 gap-14 items-center min-h-[80vh]">
+          {/* LEFT */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-xl"
+          >
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="inline-flex items-center gap-2.5 rounded-full border border-slate-200/80 bg-white px-4 py-2 shadow-[0_4px_20px_-4px_rgba(59,130,246,0.15)]"
+            >
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-60 animate-ping" />
+                <span className="relative inline-flex w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
+              </span>
+              <span className="text-sm font-medium text-slate-700">Creative Design Studio</span>
+            </motion.div>
+
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="mt-7 text-[2.75rem] sm:text-6xl lg:text-[4.5rem] font-black leading-[0.98] tracking-[-0.03em] text-slate-900"
+            >
+              Designs that{" "}
+              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
+                inspire.
+              </span>
+              <br />
+              Edits that make an{" "}
+              <span className="bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+                impact.
+              </span>
+            </motion.h1>
+
+            {/* Desc */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.7 }}
+              className="mt-7 text-lg leading-[1.7] text-slate-500 max-w-[520px]"
+            >
+              I'm Aman Keshri, a creative designer & video editor crafting stunning visuals and
+              cinematic edits that help brands grow and stand out.
+            </motion.p>
+
+            {/* Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.7 }}
+              className="mt-9 flex flex-wrap items-center gap-4"
+            >
+              <motion.button
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative h-14 px-8 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-[0_10px_30px_-8px_rgba(59,130,246,0.6)] hover:shadow-[0_18px_40px_-8px_rgba(59,130,246,0.7)] transition-shadow inline-flex items-center gap-2"
+              >
+                <span>View My Work</span>
+                <MoveRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="h-14 px-5 rounded-xl border border-slate-200 bg-white text-slate-800 font-medium transition-all flex items-center gap-3 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.1)]"
+              >
+                <span className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 ring-1 ring-blue-100 flex items-center justify-center">
+                  <Play className="w-3.5 h-3.5 fill-blue-600 text-blue-600 ml-0.5" />
+                </span>
+                Watch Showreel
+              </motion.button>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.7 }}
+              className="mt-12 flex items-center gap-8"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-3">
+                  {[1, 2, 3].map((i) => (
+                    <img
+                      key={i}
+                      src={`https://i.pravatar.cc/100?img=${i + 10}`}
+                      alt=""
+                      className="w-11 h-11 rounded-full border-[2.5px] border-white shadow-md object-cover"
+                    />
+                  ))}
+                </div>
+                <div>
+                  <div className="text-base font-bold text-slate-900">50+ Happy Clients</div>
+                  <div className="text-sm text-slate-500">Worldwide</div>
+                </div>
+              </div>
+
+              <div className="w-px h-12 bg-gradient-to-b from-transparent via-slate-300 to-transparent" />
+
+              <div>
+                <div className="text-base font-bold text-slate-900">5+ Years</div>
+                <div className="text-sm text-slate-500">of Experience</div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* RIGHT — Workspace */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="relative h-[560px] lg:h-[640px] flex items-center justify-center"
+          >
+            <WorkspaceScene />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────────────── WORKSPACE SCENE ───────────────────────── */
+
+function WorkspaceScene() {
+  const floatingIcons = [
+    { Icon: PenTool, color: "text-blue-600", bg: "from-blue-50 to-white", pos: "top-4 left-2", delay: 0, dur: 5 },
+    { Icon: Play, color: "text-indigo-600", bg: "from-indigo-50 to-white", pos: "top-20 -right-2", delay: 0.6, dur: 6 },
+    { Icon: Type, color: "text-purple-600", bg: "from-purple-50 to-white", pos: "top-44 -left-4", delay: 1.2, dur: 5.5 },
+    { Icon: ImageIcon, color: "text-cyan-600", bg: "from-cyan-50 to-white", pos: "top-56 right-4", delay: 0.3, dur: 6.5 },
+    { Icon: Clapperboard, color: "text-fuchsia-600", bg: "from-fuchsia-50 to-white", pos: "bottom-44 right-0", delay: 0.9, dur: 5.2 },
   ];
 
   return (
-    <section className="relative overflow-hidden w-full bg-[#F8FAFF]">
-  
-  {/* BACKGROUND */}
-  <div className="absolute inset-0 overflow-hidden">
-    
-    {/* Gradient Glow */}
-    <div className="absolute top-0 left-0 w-[40rem] h-[40rem] bg-blue-500/10 blur-3xl rounded-full" />
+    <div className="relative w-full h-full">
+      {/* Ambient glows behind scene */}
+      <div className="absolute inset-x-8 top-8 bottom-32 bg-gradient-to-br from-blue-300/20 via-indigo-300/15 to-purple-300/20 blur-3xl rounded-[3rem]" />
 
-    <div className="absolute bottom-0 right-0 w-[35rem] h-[35rem] bg-purple-500/10 blur-3xl rounded-full" />
-
-    {/* Grid */}
-    <div
-      className="absolute inset-0 opacity-[0.03]"
-      style={{
-        backgroundImage:
-          "linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)",
-        backgroundSize: "60px 60px",
-      }}
-    />
-  </div>
-
-  <div className="relative z-10 max-w-7xl mx-auto px-6 pt-10 pb-24">
-    
-    {/* HERO */}
-    <div className="grid lg:grid-cols-2 gap-14 items-center min-h-[85vh]">
-      
-      {/* LEFT */}
-      <motion.div
-        initial={{ opacity: 0, x: -40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        className="max-w-xl"
+      {/* Dotted connection path */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none z-20"
+        viewBox="0 0 600 600"
+        fill="none"
+        preserveAspectRatio="none"
       >
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+        <motion.path
+          d="M60 120 C 180 60, 300 220, 420 140 S 580 240, 540 360"
+          stroke="url(#dashGrad)"
+          strokeWidth="1.5"
+          strokeDasharray="4 8"
+          strokeLinecap="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 3.5, delay: 0.6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+        />
+        <defs>
+          <linearGradient id="dashGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#60a5fa" />
+            <stop offset="100%" stopColor="#a78bfa" />
+          </linearGradient>
+        </defs>
+      </svg>
 
-          <span className="text-sm font-medium text-slate-600">
-            Creative Design Studio
-          </span>
-        </div>
+      {/* Glowing particles */}
+      {[...Array(8)].map((_, i) => (
+        <motion.span
+          key={i}
+          className="absolute w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.9)] z-10"
+          style={{
+            top: `${15 + ((i * 53) % 70)}%`,
+            left: `${10 + ((i * 71) % 80)}%`,
+          }}
+          animate={{ opacity: [0.2, 1, 0.2], scale: [0.7, 1.3, 0.7] }}
+          transition={{ duration: 3 + (i % 3), repeat: Infinity, delay: i * 0.3 }}
+        />
+      ))}
 
-        {/* Heading */}
-        <h1 className="mt-8 text-5xl lg:text-7xl font-black leading-[0.95] tracking-tight text-slate-900">
-          Designs that{" "}
-          <span className="text-blue-600">inspire.</span>
-
-          <br />
-
-          Edits that make an{" "}
-          <span className="text-blue-600">impact.</span>
-        </h1>
-
-        {/* Desc */}
-        <p className="mt-8 text-lg leading-relaxed text-slate-500 max-w-lg">
-          I'm Aman Keshri, a creative designer & video editor crafting
-          stunning visuals and cinematic edits that help brands grow
-          and stand out.
-        </p>
-
-        {/* Buttons */}
-        <div className="mt-10 flex flex-wrap items-center gap-4">
-          
-          <button className="h-14 px-8 rounded-2xl bg-blue-600 text-white font-semibold shadow-xl shadow-blue-500/20 hover:scale-105 transition-all">
-            View My Work →
-          </button>
-
-          <button className="h-14 px-6 rounded-2xl border border-slate-200 bg-white text-slate-700 font-medium hover:border-blue-200 hover:text-blue-600 transition-all flex items-center gap-3 shadow-sm">
-            <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
-              <Play className="w-4 h-4 fill-blue-600 text-blue-600 ml-0.5" />
-            </div>
-
-            Watch Showreel
-          </button>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-14 flex items-center gap-10">
-          
-          <div className="flex items-center gap-3">
-            <div className="flex -space-x-3">
-              {[1, 2, 3].map((i) => (
-                <img
-                  key={i}
-                  src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                  className="w-11 h-11 rounded-full border-2 border-white"
-                />
-              ))}
-            </div>
-
-            <div>
-              <div className="text-lg font-bold text-slate-900">
-                50+
-              </div>
-
-              <div className="text-sm text-slate-500">
-                Happy Clients Worldwide
-              </div>
-            </div>
-          </div>
-
-          <div className="w-px h-14 bg-slate-200" />
-
-          <div>
-            <div className="text-lg font-bold text-slate-900">
-              5+
-            </div>
-
-            <div className="text-sm text-slate-500">
-              Years of Experience
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* RIGHT */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative flex items-center justify-center"
-      >
-        
-        {/* Dotted Lines */}
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 800 600"
-          fill="none"
+      {/* Floating icon cards */}
+      {floatingIcons.map(({ Icon, color, bg, pos, delay, dur }, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.6 + i * 0.1, duration: 0.6 }}
+          className={`absolute ${pos} z-30`}
         >
-          <motion.path
-            d="M150 100C250 50 350 200 450 150C550 100 650 180 720 120"
-            stroke="#93C5FD"
-            strokeWidth="2"
-            strokeDasharray="6 10"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          />
-        </svg>
-
-        {/* Floating Icons */}
-        {[
-          {
-            icon: <PenTool className="w-6 h-6 text-blue-600" />,
-            className: "top-0 left-24",
-          },
-          {
-            icon: <ImageIcon className="w-6 h-6 text-slate-500" />,
-            className: "top-16 right-16",
-          },
-          {
-            icon: <Type className="w-6 h-6 text-slate-500" />,
-            className: "bottom-24 left-16",
-          },
-          {
-            icon: <Clapperboard className="w-6 h-6 text-slate-500" />,
-            className: "top-40 right-0",
-          },
-          {
-            icon: <Play className="w-6 h-6 text-slate-500" />,
-            className: "top-36 left-0",
-          },
-        ].map((item, i) => (
           <motion.div
-            key={i}
-            animate={{
-              y: [0, -10, 0],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-            }}
-            className={`absolute ${item.className} z-30`}
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: dur, delay, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ scale: 1.1, rotate: -3 }}
+            className={`w-[60px] h-[60px] rounded-2xl bg-gradient-to-br ${bg} border border-white shadow-[0_12px_30px_-8px_rgba(15,23,42,0.15)] backdrop-blur-xl flex items-center justify-center`}
           >
-            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl border border-white/70 backdrop-blur-xl flex items-center justify-center">
-              {item.icon}
-            </div>
+            <Icon className={`w-6 h-6 ${color}`} strokeWidth={2} />
           </motion.div>
-        ))}
-
-        {/* Monitor */}
-        <motion.div
-          animate={{
-            y: [0, -10, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-          }}
-          className="relative z-20"
-        >
-          
-          {/* Glow */}
-          <div className="absolute -inset-10  " />
-
-          {/* Image */}
-          <div className="relative overflow-hidden ]">
-            <img
-              src={HeroImg}
-              alt=""
-              className="w-[42rem] object-cover"
-            />
-          </div>
         </motion.div>
+      ))}
 
-        {/* Floating Card */}
-        <motion.div
-          animate={{
-            y: [0, -8, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-          }}
-          className="absolute bottom-12 left-10 z-30 w-64 rounded-3xl bg-white/90 backdrop-blur-2xl border border-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] p-5"
-        >
-          <div className="flex items-start gap-4">
-            
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-blue-600" />
+      {/* MONITOR + DESK */}
+      <motion.div
+        animate={{ y: [0, -6, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute inset-0 flex flex-col items-center justify-center z-20"
+      >
+        {/* Monitor */}
+        <div className="relative">
+          {/* Glow behind monitor */}
+          <div className="absolute -inset-8 bg-gradient-to-br from-blue-400/30 via-indigo-300/20 to-purple-400/30 blur-3xl rounded-full" />
+
+          <div className="relative w-[420px] sm:w-[460px] rounded-[1.5rem] bg-gradient-to-b from-slate-800 to-slate-900 p-3 shadow-[0_30px_80px_-20px_rgba(15,23,42,0.4)]">
+            {/* Screen */}
+            <div className="relative aspect-[16/10] rounded-[1rem] bg-gradient-to-br from-[#fafbff] via-white to-[#f0f4ff] overflow-hidden">
+              {/* subtle gradient sheen */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/40 via-transparent to-purple-100/30" />
+              {/* top dot */}
+              <div className="absolute top-3 left-3 flex gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-red-400/70" />
+                <span className="w-2 h-2 rounded-full bg-yellow-400/70" />
+                <span className="w-2 h-2 rounded-full bg-green-400/70" />
+              </div>
+
+              <div className="relative h-full flex items-center justify-center px-10">
+                <p className="text-3xl sm:text-4xl font-black leading-[1.05] tracking-tight text-slate-900 text-center">
+                  Good design
+                  <br />
+                  is good
+                  <br />
+                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    business.
+                  </span>
+                </p>
+              </div>
+
+              {/* corner accent */}
+              <div className="absolute bottom-3 right-4 flex items-center gap-1.5 text-[10px] font-medium text-slate-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                AK.Studio
+              </div>
             </div>
+            {/* Stand notch */}
+            <div className="mx-auto mt-1 h-1.5 w-20 rounded-b-lg bg-slate-700" />
+          </div>
 
-            <div>
-              <div className="text-sm font-semibold text-slate-900">
-                Brand & Identity Design
-              </div>
+          {/* Stand */}
+          <div className="mx-auto -mt-px h-8 w-2 bg-gradient-to-b from-slate-700 to-slate-600" style={{ width: "10px" }} />
+          <div className="mx-auto h-2 w-40 rounded-full bg-gradient-to-b from-slate-700 to-slate-500 shadow-lg" />
+        </div>
 
-              <div className="mt-1 text-xs text-slate-500">
-                Premium creative solutions
-              </div>
-
-              <div className="mt-3 flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <img
-                    key={i}
-                    src={`https://i.pravatar.cc/100?img=${i + 20}`}
-                    className="w-8 h-8 rounded-full border-2 border-white"
-                  />
+        {/* Desk surface */}
+        <div className="relative mt-4 w-[92%] h-[120px] rounded-t-[2rem] bg-gradient-to-b from-[#e8eaf2] via-[#dfe3ee] to-[#cbd0dc] shadow-[inset_0_2px_0_rgba(255,255,255,0.7),0_20px_50px_-10px_rgba(15,23,42,0.25)]">
+            {/* keyboard */}
+            <div className="absolute top-5 left-1/2 -translate-x-1/2 w-[220px] h-[60px] rounded-xl bg-gradient-to-b from-white to-slate-100 shadow-md border border-slate-200/80 p-2">
+              <div className="grid grid-cols-12 gap-[3px] h-full">
+                {[...Array(36)].map((_, i) => (
+                  <div key={i} className="rounded-[3px] bg-slate-100 border border-slate-200/70" />
                 ))}
               </div>
             </div>
+            {/* mouse */}
+            <div className="absolute top-7 right-12 w-9 h-14 rounded-[12px] bg-gradient-to-b from-white to-slate-100 shadow-md border border-slate-200/80" />
+            {/* mug */}
+            <div className="absolute -top-8 left-10">
+              <div className="relative w-12 h-14 rounded-b-[10px] rounded-t-md bg-gradient-to-b from-white to-slate-100 border border-slate-200 shadow-md">
+                <div className="absolute -right-2 top-3 w-3 h-6 rounded-full border-2 border-slate-300" />
+                <div className="absolute inset-x-1 top-1 h-1 rounded-full bg-blue-500/70" />
+              </div>
+            </div>
+            {/* plant */}
+            <div className="absolute -top-12 right-8">
+              <div className="relative w-12 h-10 rounded-b-xl bg-gradient-to-b from-orange-200 to-orange-300 border border-orange-300/60" />
+              <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex gap-0.5">
+                <span className="block w-2 h-8 rounded-full bg-green-500 rotate-[-15deg]" />
+                <span className="block w-2 h-10 rounded-full bg-green-600" />
+                <span className="block w-2 h-8 rounded-full bg-green-500 rotate-[15deg]" />
+              </div>
+            </div>
+        </div>
+      </motion.div>
+
+      {/* Floating service card */}
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 1, duration: 0.8 }}
+        className="absolute bottom-4 left-0 sm:left-2 z-40"
+      >
+        <motion.div
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          whileHover={{ y: -12 }}
+          className="w-[260px] rounded-3xl bg-white/80 backdrop-blur-2xl border border-white shadow-[0_30px_60px_-15px_rgba(15,23,42,0.2)] p-5"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-70 animate-ping" />
+              <span className="relative inline-flex w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(59,130,246,0.9)]" />
+            </span>
+            <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-500">
+              Now offering
+            </span>
+          </div>
+          <div className="text-base font-bold text-slate-900 leading-snug">
+            Brand & Identity
+            <br />
+            Design
+          </div>
+          <div className="mt-4 flex items-center justify-between">
+            <div className="flex -space-x-2">
+              {[21, 22, 23, 24].map((n) => (
+                <img
+                  key={n}
+                  src={`https://i.pravatar.cc/80?img=${n}`}
+                  alt=""
+                  className="w-7 h-7 rounded-full border-2 border-white object-cover"
+                />
+              ))}
+            </div>
+            <motion.button
+              whileHover={{ rotate: 45, scale: 1.1 }}
+              className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-[0_8px_20px_-4px_rgba(59,130,246,0.6)]"
+            >
+              <ArrowUpRight className="w-4 h-4" />
+            </motion.button>
           </div>
         </motion.div>
       </motion.div>
     </div>
-  </div>
-</section>
   );
 }
 
