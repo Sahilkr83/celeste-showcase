@@ -382,84 +382,29 @@ function WorkspaceScene() {
         </motion.div>
       ))}
 
-      {/* MONITOR + DESK */}
+      {/* WORKSPACE IMAGE */}
       <motion.div
-        animate={{ y: [0, -6, 0] }}
+        animate={{ y: [0, -8, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-0 flex flex-col items-center justify-center z-20"
+        className="absolute inset-0 flex items-center justify-center z-20"
       >
-        {/* Monitor */}
         <div className="relative">
-          {/* Glow behind monitor */}
-          <div className="absolute -inset-8 bg-gradient-to-br from-blue-400/30 via-indigo-300/20 to-purple-400/30 blur-3xl rounded-full" />
+          {/* Layered glow halos */}
+          <div className="absolute -inset-16 bg-gradient-to-br from-blue-400/35 via-indigo-300/25 to-purple-400/35 blur-[100px] rounded-full" />
+          <div className="absolute -inset-6 bg-gradient-to-tr from-cyan-300/25 via-transparent to-fuchsia-300/30 blur-3xl rounded-[3rem]" />
 
-          <div className="relative w-[420px] sm:w-[460px] rounded-[1.5rem] bg-gradient-to-b from-slate-800 to-slate-900 p-3 shadow-[0_30px_80px_-20px_rgba(15,23,42,0.4)]">
-            {/* Screen */}
-            <div className="relative aspect-[16/10] rounded-[1rem] bg-gradient-to-br from-[#fafbff] via-white to-[#f0f4ff] overflow-hidden">
-              {/* subtle gradient sheen */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/40 via-transparent to-purple-100/30" />
-              {/* top dot */}
-              <div className="absolute top-3 left-3 flex gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-red-400/70" />
-                <span className="w-2 h-2 rounded-full bg-yellow-400/70" />
-                <span className="w-2 h-2 rounded-full bg-green-400/70" />
-              </div>
+          {/* Soft ground shadow */}
+          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[80%] h-10 bg-slate-900/20 blur-2xl rounded-full" />
 
-              <div className="relative h-full flex items-center justify-center px-10">
-                <p className="text-3xl sm:text-4xl font-black leading-[1.05] tracking-tight text-slate-900 text-center">
-                  Good design
-                  <br />
-                  is good
-                  <br />
-                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    business.
-                  </span>
-                </p>
-              </div>
-
-              {/* corner accent */}
-              <div className="absolute bottom-3 right-4 flex items-center gap-1.5 text-[10px] font-medium text-slate-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                AK.Studio
-              </div>
-            </div>
-            {/* Stand notch */}
-            <div className="mx-auto mt-1 h-1.5 w-20 rounded-b-lg bg-slate-700" />
-          </div>
-
-          {/* Stand */}
-          <div className="mx-auto -mt-px h-8 w-2 bg-gradient-to-b from-slate-700 to-slate-600" style={{ width: "10px" }} />
-          <div className="mx-auto h-2 w-40 rounded-full bg-gradient-to-b from-slate-700 to-slate-500 shadow-lg" />
-        </div>
-
-        {/* Desk surface */}
-        <div className="relative mt-4 w-[92%] h-[120px] rounded-t-[2rem] bg-gradient-to-b from-[#e8eaf2] via-[#dfe3ee] to-[#cbd0dc] shadow-[inset_0_2px_0_rgba(255,255,255,0.7),0_20px_50px_-10px_rgba(15,23,42,0.25)]">
-            {/* keyboard */}
-            <div className="absolute top-5 left-1/2 -translate-x-1/2 w-[220px] h-[60px] rounded-xl bg-gradient-to-b from-white to-slate-100 shadow-md border border-slate-200/80 p-2">
-              <div className="grid grid-cols-12 gap-[3px] h-full">
-                {[...Array(36)].map((_, i) => (
-                  <div key={i} className="rounded-[3px] bg-slate-100 border border-slate-200/70" />
-                ))}
-              </div>
-            </div>
-            {/* mouse */}
-            <div className="absolute top-7 right-12 w-9 h-14 rounded-[12px] bg-gradient-to-b from-white to-slate-100 shadow-md border border-slate-200/80" />
-            {/* mug */}
-            <div className="absolute -top-8 left-10">
-              <div className="relative w-12 h-14 rounded-b-[10px] rounded-t-md bg-gradient-to-b from-white to-slate-100 border border-slate-200 shadow-md">
-                <div className="absolute -right-2 top-3 w-3 h-6 rounded-full border-2 border-slate-300" />
-                <div className="absolute inset-x-1 top-1 h-1 rounded-full bg-blue-500/70" />
-              </div>
-            </div>
-            {/* plant */}
-            <div className="absolute -top-12 right-8">
-              <div className="relative w-12 h-10 rounded-b-xl bg-gradient-to-b from-orange-200 to-orange-300 border border-orange-300/60" />
-              <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex gap-0.5">
-                <span className="block w-2 h-8 rounded-full bg-green-500 rotate-[-15deg]" />
-                <span className="block w-2 h-10 rounded-full bg-green-600" />
-                <span className="block w-2 h-8 rounded-full bg-green-500 rotate-[15deg]" />
-              </div>
-            </div>
+          {/* Image */}
+          <motion.img
+            src={HeroImg}
+            alt="Creative workspace"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-[36rem] sm:w-[40rem] lg:w-[44rem] max-w-full object-contain drop-shadow-[0_40px_60px_rgba(15,23,42,0.18)]"
+          />
         </div>
       </motion.div>
 
