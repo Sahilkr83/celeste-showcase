@@ -8,6 +8,9 @@ export default defineConfig({
     server: {
       allowedHosts: ["zentrixfintech.me"],
     },
+    optimizeDeps: {
+      include: ["gsap"],
+    },
   },
   tanstackStart: {
     ssr: true,

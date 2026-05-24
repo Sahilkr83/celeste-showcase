@@ -2,7 +2,8 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-
+import logo from "@/assets/lightv2favicon.png";
+import RedirectButton from "./ui/redirectButton";
 const links = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
@@ -16,12 +17,26 @@ const links = [
 export function Navbar() {
   const { pathname } = useLocation();
   const [dark, setDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    const stored = window.localStorage.getItem("theme");
+    const isDark = stored === "dark";
+    setDark(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) {
+      return;
+    }
+
     document.documentElement.classList.toggle("dark", dark);
-  }, [dark]);
+    window.localStorage.setItem("theme", dark ? "dark" : "light");
+  }, [dark, mounted]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -32,16 +47,12 @@ export function Navbar() {
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "backdrop-blur-xl bg-background/70 border-b border-border/60"
-          : "bg-transparent"
+        scrolled ? "backdrop-blur-xl bg-background/70 border-b border-border/60" : "bg-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground font-bold shadow-lg shadow-primary/20">
-            AK
-          </div>
+        <Link to="/" className="flex items-center gap-2 bg-white rounded-2xl">
+          <img src={logo} alt="Logo" className="h-8 w-8" />
         </Link>
 
         <ul className="hidden lg:flex items-center gap-1">
@@ -49,19 +60,21 @@ export function Navbar() {
             const active = pathname === l.to;
             return (
               <li key={l.to}>
-                <Link
+                <RedirectButton
                   to={l.to}
+                  label={l.label}
                   className="relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition"
                 >
-                  {l.label}
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
+                      initial={false}
+                      animate={{ opacity: 1 }}
                       className="absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-primary"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
-                </Link>
+                </RedirectButton>
               </li>
             );
           })}
@@ -73,7 +86,15 @@ export function Navbar() {
             aria-label="Toggle theme"
             className="rounded-full p-2 hover:bg-muted transition"
           >
-            {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {mounted ? (
+              dark ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )
+            ) : (
+              <span className="block h-4 w-4" />
+            )}
           </button>
           <Link
             to="/contact"
@@ -104,7 +125,10 @@ export function Navbar() {
                   to={l.to}
                   onClick={() => setOpen(false)}
                   className="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted"
-                  activeProps={{ className: "block rounded-lg px-3 py-2 text-sm font-medium bg-muted text-primary" }}
+                  activeProps={{
+                    className:
+                      "block rounded-lg px-3 py-2 text-sm font-medium bg-muted text-primary",
+                  }}
                 >
                   {l.label}
                 </Link>

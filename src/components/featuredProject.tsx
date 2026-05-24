@@ -39,15 +39,17 @@ export function FeaturedProjectsSection({ variant = "default" }: FeaturedProject
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div className="max-w-2xl">
-            {isHero && <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-[0.25em] uppercase border border-blue-100">
-              Featured Projects
-            </span>}
+{isHero && (
+  <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 dark:border-blue-500/20 dark:bg-blue-500/10 dark:text-blue-400">
+    Featured Projects
+  </span>
+)}
 
             <div className="flex min-w-7xl justify-between items-center mt-6">
               {" "}
               {isHero ? 
               (
-              <h2 className=" text-4xl md:text-6xl font-black text-slate-900 leading-[1]">
+              <h2 className=" text-4xl md:text-6xl font-black text-slate-600 dark:text-slate-300 leading-[1]">
                 Work That
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {" "}
@@ -89,7 +91,7 @@ export function FeaturedProjectsSection({ variant = "default" }: FeaturedProject
               </div>
 
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-slate-900">{project.title}</h3>
+                <h3 className="text-2xl font-bold text-slate-600 dark:text-slate-300">{project.title}</h3>
 
                 <p className="mt-3 text-slate-500 leading-relaxed">{project.desc}</p>
 
@@ -124,7 +126,7 @@ export function FeaturedProjectsSection({ variant = "default" }: FeaturedProject
                 ✦
               </div>
 
-              <h3 className="mt-6 text-4xl font-black text-slate-900">{item.number}</h3>
+              <h3 className="mt-6 text-4xl font-black text-slate-600 dark:text-slate-300">{item.number}</h3>
 
               <p className="mt-2 text-slate-500 font-medium">{item.label}</p>
             </div>

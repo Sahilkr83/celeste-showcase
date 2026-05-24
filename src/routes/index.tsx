@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
 import {
   Sparkles,
   Play,
@@ -22,12 +23,13 @@ import {
   Grid2X2,
   Layers3,
   ImageIcon,
-  Type,
   Clapperboard,
+  MoveUpLeft,
+  MoveUpRight,
 } from "lucide-react";
 import { LinkButton, Button } from "@/components/Button";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
-import HeroImg from "@/assets/heroOfHome.png";
+import HeroImg from "@/assets/heroOfHome1.png";
 import HeroImg2 from "@/assets/Hero2.png";
 import { SectionTitle } from "@/components/SectionTitle";
 import { FeaturedProjectsSection } from "@/components/featuredProject";
@@ -40,6 +42,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import RedirectButton from "@/components/ui/redirectButton";
+import GradientText from "@/components/GradientText";
+import TiltedCard from "@/components/TiltedCard";
+import CardSwap, { Card } from "@/components/CardSwap";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -59,383 +65,585 @@ type Props = {
 };
 
 function Home() {
+  const cards = [
+    {
+      title: "Video Editing",
+      description:
+        "Cinematic storytelling, smooth transitions, color grading, motion graphics, reels, ads, and YouTube edits crafted to keep viewers engaged and emotionally connected.",
+      icon: "🎬",
+      glow: "bg-violet-500/20",
+      gradient: "from-violet-500 to-purple-600",
+      hover: "hover:shadow-[0_20px_80px_rgba(139,92,246,0.18)]",
+      button: "group-hover:text-violet-400",
+      buttonBg: "group-hover:bg-violet-600",
+      stats: [
+        {
+          value: "150+",
+          label: "Videos Edited",
+        },
+        {
+          value: "4K",
+          label: "Ultra HD Quality",
+        },
+      ],
+      tags: ["Reels", "YouTube", "Ads", "Color Grading"],
+    },
+
+    {
+      title: "Graphic Design",
+      description:
+        "Modern branding, posters, thumbnails, UI concepts, marketing visuals, and premium graphics designed to elevate your digital presence beautifully.",
+      icon: "✨",
+      glow: "bg-blue-500/20",
+      gradient: "from-blue-500 to-cyan-500",
+      hover: "hover:shadow-[0_20px_80px_rgba(59,130,246,0.18)]",
+      button: "group-hover:text-blue-400",
+      buttonBg: "group-hover:bg-blue-600",
+      stats: [
+        {
+          value: "200+",
+          label: "Creative Assets",
+        },
+        {
+          value: "100%",
+          label: "Brand Focused",
+        },
+      ],
+      tags: ["Branding", "Posters", "UI Design", "Thumbnails"],
+    },
+
+    {
+      title: "Web Development",
+      description:
+        "High-performance websites with premium UI/UX, smooth animations, responsive layouts, SEO optimization, and modern frontend technologies.",
+      icon: "💻",
+      glow: "bg-emerald-500/20",
+      gradient: "from-emerald-500 to-teal-500",
+      hover: "hover:shadow-[0_20px_80px_rgba(16,185,129,0.18)]",
+      button: "group-hover:text-emerald-400",
+      buttonBg: "group-hover:bg-emerald-600",
+      stats: [
+        {
+          value: "99%",
+          label: "Responsive",
+        },
+        {
+          value: "Fast",
+          label: "Performance",
+        },
+      ],
+      tags: ["React", "Next.js", "Tailwind", "Animations"],
+    },
+
+    {
+      title: "Social Media",
+      description:
+        "Social media strategies, engaging reels, post creatives, and growth-focused content management tailored for modern audiences.",
+      icon: "📱",
+      glow: "bg-pink-500/20",
+      gradient: "from-pink-500 to-rose-500",
+      hover: "hover:shadow-[0_20px_80px_rgba(244,63,94,0.18)]",
+      button: "group-hover:text-pink-400",
+      buttonBg: "group-hover:bg-pink-600",
+      stats: [
+        {
+          value: "10M+",
+          label: "Organic Reach",
+        },
+        {
+          value: "Daily",
+          label: "Content Growth",
+        },
+      ],
+      tags: ["Instagram", "Growth", "Content", "Reels"],
+    },
+  ];
   return (
-    <>
+    <div className="relative  ">
+      {/* Glow */}
+      <div className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-500/10 blur-3xl" />
+      {/* <HeroSection3D /> */}
       <Hero variant="hero" />
-      {/* <Testimonials/> */}
+
       <ServicesElevateBrandSection />
-      <FeaturedProjectsSection variant="hero" />
-      <MyProcessSection variant="hero" />
-
-      {/* <TrustedLogos /> */}
-      {/* <Stats /> */}
-    </>
-  );
-}
-
-/* ───────────────────────── HERO ───────────────────────── */
-
-export function Hero({ variant = "default" }: Props) {
-  return (
-    <section className="relative overflow-hidden w-full bg-gradient-to-b from-[#F6F8FF] via-[#F8FAFF] to-white min-h-[90vh]">
-      {/* BACKGROUND */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{ x: [0, 40, 0], y: [0, 30, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-40 -left-40 w-[44rem] h-[44rem] bg-blue-400/25 blur-[140px] rounded-full"
-        />
-        <motion.div
-          animate={{ x: [0, -50, 0], y: [0, -20, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-40 -right-40 w-[40rem] h-[40rem] bg-purple-400/25 blur-[140px] rounded-full"
-        />
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, #0f172a 1px, transparent 1px), linear-gradient(to bottom, #0f172a 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            maskImage:
-              "radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 75%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 75%)",
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-24">
-        <div className="grid lg:grid-cols-2 gap-14 items-center min-h-[80vh]">
-          {/* LEFT */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-xl"
-          >
+      {/* <FeaturedProjectsSection variant="hero" /> */}
+      <section className="relative  py-24">
+        <div className="container relative mx-auto grid max-w-7xl items-center gap-20 px-6 lg:grid-cols-2 overflow-hidden">
+          {/* LEFT CONTENT */}
+          <div className="relative z-10 pb-10">
             {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              className="inline-flex items-center gap-2.5 rounded-full border border-slate-200/80 bg-white px-4 py-2 shadow-[0_4px_20px_-4px_rgba(59,130,246,0.15)]"
-            >
-              <span className="relative flex w-2 h-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-60 animate-ping" />
-                <span className="relative inline-flex w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(59,130,246,0.8)]" />
-              </span>
-              <span className="text-sm font-medium text-slate-700">Creative Design Studio</span>
-            </motion.div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-blue-600 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.04] dark:text-blue-400">
+              Our Services
+            </div>
 
             {/* Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="mt-7 text-[2.75rem] sm:text-6xl lg:text-[4.5rem] font-black leading-[0.98] tracking-[-0.03em] text-slate-900"
-            >
-              Designs that{" "}
-              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
-                inspire.
-              </span>
+            <h2 className="mt-8 text-4xl font-black leading-[1.05] tracking-tight text-slate-900 sm:text-5xl lg:text-6xl dark:text-white">
+              Creative solutions
               <br />
-              Edits that make an{" "}
-              <span className="bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                impact.
-              </span>
-            </motion.h1>
-
-            {/* Desc */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.7 }}
-              className="mt-7 text-lg leading-[1.7] text-slate-500 max-w-[520px]"
-            >
-              I'm Aman Keshri, a creative designer & video editor crafting stunning visuals and
-              cinematic edits that help brands grow and stand out.
-            </motion.p>
-
-            {/* Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.7 }}
-              className="mt-9 flex flex-wrap items-center gap-4"
-            >
-              <motion.button
-                whileHover={{ scale: 1.04, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="group relative h-14 px-8 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-[0_10px_30px_-8px_rgba(59,130,246,0.6)] hover:shadow-[0_18px_40px_-8px_rgba(59,130,246,0.7)] transition-shadow inline-flex items-center gap-2"
+              for modern{" "}
+              <GradientText
+                colors={["#3B82F6", "#8B5CF6", "#A855F7"]}
+                animationSpeed={8}
+                showBorder={false}
+                classNameText="font-black pb-2"
               >
-                <span>View My Work</span>
-                <MoveRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </motion.button>
+                digital brands.
+              </GradientText>
+            </h2>
 
-              <motion.button
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="h-14 px-5 rounded-xl border border-slate-200 bg-white text-slate-800 font-medium transition-all flex items-center gap-3 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.1)]"
-              >
-                <span className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-50 to-indigo-50 ring-1 ring-blue-100 flex items-center justify-center">
-                  <Play className="w-3.5 h-3.5 fill-blue-600 text-blue-600 ml-0.5" />
-                </span>
-                Watch Showreel
-              </motion.button>
-            </motion.div>
+            {/* Description */}
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-500 dark:text-white/60">
+              From cinematic edits to premium websites and brand identities, we create experiences
+              that elevate your business and connect deeply with your audience.
+            </p>
 
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.7 }}
-              className="mt-12 flex items-center gap-8"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3].map((i) => (
-                    <img
-                      key={i}
-                      src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                      alt=""
-                      className="w-11 h-11 rounded-full border-[2.5px] border-white shadow-md object-cover"
-                    />
-                  ))}
+            {/* Features */}
+            <div className="mt-10 space-y-5">
+              {[
+                "Modern premium UI/UX",
+                "Cinematic storytelling",
+                "Fast responsive websites",
+                "Social media growth creatives",
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 text-white shadow-lg">
+                    ✓
+                  </div>
+
+                  <p className="font-medium text-slate-700 dark:text-white/80">{item}</p>
                 </div>
-                <div>
-                  <div className="text-base font-bold text-slate-900">50+ Happy Clients</div>
-                  <div className="text-sm text-slate-500">Worldwide</div>
-                </div>
-              </div>
+              ))}
+            </div>
 
-              <div className="w-px h-12 bg-gradient-to-b from-transparent via-slate-300 to-transparent" />
+            {/* CTA */}
+            <button className="mt-10 inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-4 text-sm font-semibold text-white shadow-[0_10px_40px_rgba(59,130,246,0.35)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(124,58,237,0.35)]">
+              Explore Services
+              <span className="text-lg">→</span>
+            </button>
+          </div>
 
-              <div>
-                <div className="text-base font-bold text-slate-900">5+ Years</div>
-                <div className="text-sm text-slate-500">of Experience</div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* RIGHT — Workspace */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[560px] lg:h-[640px] flex items-center justify-center"
+          {/* RIGHT CARD SWAP */}
+          <div
+            className="relative flex items-center justify-center pb-10"
+            style={{
+              height: "650px",
+            }}
           >
-            <WorkspaceScene />
-          </motion.div>
+            {/* Glow */}
+            <div className="absolute h-[500px] w-[500px] rounded-full bg-gradient-to-r from-violet-500/20 via-blue-500/20 to-cyan-500/20 blur-3xl" />
+
+            <CardSwap
+              cardDistance={70}
+              verticalDistance={85}
+              delay={3000}
+              pauseOnHover={true}
+              easing="power1"
+              skewAmount={0}
+            >
+              {cards.map((card, index) => (
+                <Card
+                  key={index}
+                  className={`group relative overflow-hidden rounded-[32px] border border-white/10 bg-[#0B1120]/80 p-7  backdrop-blur-2xl transition-shadow duration-500 ${card.hover}`}
+                >
+                  {/* Glow */}
+                  <div
+                    className={`absolute -right-10 -top-10 h-40 w-40 rounded-full ${card.glow} blur-3xl transition-all duration-500 group-hover:scale-125`}
+                  />
+
+                  {/* Noise */}
+                  <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('/noise.svg')]" />
+
+                  <div className="relative flex h-full flex-col ">
+                    {/* Icon */}
+                    <div
+                      className={`flex h-16 w-16 z-10 items-center justify-center rounded-3xl bg-gradient-to-br ${card.gradient} text-3xl shadow-lg`}
+                    >
+                      {card.icon}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="mt-7 text-3xl font-black tracking-tight text-white z-10">
+                      {card.title}
+                    </h3>
+
+                    {/* Desc */}
+                    <p className="mt-4 text-sm leading-relaxed text-white/60 w-2/3 z-10">
+                      {card.description}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="mt-6 flex flex-wrap gap-2 z-10">
+                      {card.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-white/70"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Stats */}
+                    <div className="mt-7 grid grid-cols-2 gap-4 z-10">
+                      {card.stats.map((stat) => (
+                        <div key={stat.label} className="rounded-2xl bg-white/[0.04] p-4">
+                          <p className="text-2xl font-bold text-white">{stat.value}</p>
+
+                          <p className="mt-1 text-xs text-white/50">{stat.label}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Button */}
+                    <button
+                      className={`mt-auto z-10 inline-flex items-center gap-3 pt-8 text-sm font-semibold text-white transition-all duration-300 ${card.button}`}
+                    >
+                      Explore Service
+                      <span
+                        className={`flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-all duration-300 group-hover:translate-x-1 ${card.buttonBg}`}
+                      >
+                        →
+                      </span>
+                    </button>
+                  </div>
+                </Card>
+              ))}
+            </CardSwap>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <MyProcessSection variant="hero" />
+      {/* <TrustedLogos /> */}
+      {/* <Stats /> */}
+    </div>
   );
 }
 
-/* ───────────────────────── WORKSPACE SCENE ───────────────────────── */
-
-function WorkspaceScene() {
-  const floatingIcons = [
-    { Icon: PenTool, color: "text-blue-600", bg: "from-blue-50 to-white", pos: "top-4 left-2", delay: 0, dur: 5 },
-    { Icon: Play, color: "text-indigo-600", bg: "from-indigo-50 to-white", pos: "top-20 -right-2", delay: 0.6, dur: 6 },
-    { Icon: Type, color: "text-purple-600", bg: "from-purple-50 to-white", pos: "top-44 -left-4", delay: 1.2, dur: 5.5 },
-    { Icon: ImageIcon, color: "text-cyan-600", bg: "from-cyan-50 to-white", pos: "top-56 right-4", delay: 0.3, dur: 6.5 },
-    { Icon: Clapperboard, color: "text-fuchsia-600", bg: "from-fuchsia-50 to-white", pos: "bottom-44 right-0", delay: 0.9, dur: 5.2 },
+export function Hero({ variant = "default" }: Props) {
+  const isHero = variant === "hero";
+  const features = [
+    {
+      title: "Brand Focused",
+      desc: "Designs that reflect your identity.",
+      icon: PenTool,
+    },
+    {
+      title: "Creative Approach",
+      desc: "Unique ideas for maximum impact.",
+      icon: Grid2X2,
+    },
+    {
+      title: "Attention to Detail",
+      desc: "Pixel-perfect designs that stand out.",
+      icon: Layers3,
+    },
   ];
 
   return (
-    <div className="relative w-full h-full">
-      {/* Ambient glows behind scene */}
-      <div className="absolute inset-x-8 top-8 bottom-32 bg-gradient-to-br from-blue-300/20 via-indigo-300/15 to-purple-300/20 blur-3xl rounded-[3rem]" />
-
-      {/* Dotted connection path */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none z-20"
-        viewBox="0 0 600 600"
-        fill="none"
-        preserveAspectRatio="none"
-      >
-        <motion.path
-          d="M60 120 C 180 60, 300 220, 420 140 S 580 240, 540 360"
-          stroke="url(#dashGrad)"
-          strokeWidth="1.5"
-          strokeDasharray="4 8"
-          strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 3.5, delay: 0.6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-        />
-        <defs>
-          <linearGradient id="dashGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#60a5fa" />
-            <stop offset="100%" stopColor="#a78bfa" />
-          </linearGradient>
-        </defs>
-      </svg>
-
-      {/* Glowing particles */}
-      {[...Array(8)].map((_, i) => (
-        <motion.span
-          key={i}
-          className="absolute w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.9)] z-10"
-          style={{
-            top: `${15 + ((i * 53) % 70)}%`,
-            left: `${10 + ((i * 71) % 80)}%`,
-          }}
-          animate={{ opacity: [0.2, 1, 0.2], scale: [0.7, 1.3, 0.7] }}
-          transition={{ duration: 3 + (i % 3), repeat: Infinity, delay: i * 0.3 }}
-        />
-      ))}
-
-      {/* Floating icon cards */}
-      {floatingIcons.map(({ Icon, color, bg, pos, delay, dur }, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, y: 20, scale: 0.8 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.6 + i * 0.1, duration: 0.6 }}
-          className={`absolute ${pos} z-30`}
-        >
+    <section className="relative overflow-hidden w-full">
+      <div className="container relative  mx-auto flex flex-col items-center px-6 pt-10 gap-15">
+        <div className="grid items-center gap-16 lg:grid-cols-2 max-w-7xl">
+          {/* LEFT */}
           <motion.div
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: dur, delay, repeat: Infinity, ease: "easeInOut" }}
-            whileHover={{ scale: 1.1, rotate: -3 }}
-            className={`w-[60px] h-[60px] rounded-2xl bg-gradient-to-br ${bg} border border-white shadow-[0_12px_30px_-8px_rgba(15,23,42,0.15)] backdrop-blur-xl flex items-center justify-center`}
+            initial={{ opacity: 1, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className={`${isHero ? "max-w-lg" : "max-w-lg"} flex flex-col items-start h-full z-10`}
           >
-            <Icon className={`w-6 h-6 ${color}`} strokeWidth={2} />
-          </motion.div>
-        </motion.div>
-      ))}
+            {!isHero && (
+              <Breadcrumb className="mb-20 dark:text-white">
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink
+                      href="/"
+                      className="text-black transition-colors dark:text-white"
+                    >
+                      Home
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
 
-      {/* MONITOR + DESK */}
-      <motion.div
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute inset-0 flex flex-col items-center justify-center z-20"
-      >
-        {/* Monitor */}
-        <div className="relative">
-          {/* Glow behind monitor */}
-          <div className="absolute -inset-8 bg-gradient-to-br from-blue-400/30 via-indigo-300/20 to-purple-400/30 blur-3xl rounded-full" />
+                  <BreadcrumbSeparator className="text-black dark:text-white" />
 
-          <div className="relative w-[420px] sm:w-[460px] rounded-[1.5rem] bg-gradient-to-b from-slate-800 to-slate-900 p-3 shadow-[0_30px_80px_-20px_rgba(15,23,42,0.4)]">
-            {/* Screen */}
-            <div className="relative aspect-[16/10] rounded-[1rem] bg-gradient-to-br from-[#fafbff] via-white to-[#f0f4ff] overflow-hidden">
-              {/* subtle gradient sheen */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/40 via-transparent to-purple-100/30" />
-              {/* top dot */}
-              <div className="absolute top-3 left-3 flex gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-red-400/70" />
-                <span className="w-2 h-2 rounded-full bg-yellow-400/70" />
-                <span className="w-2 h-2 rounded-full bg-green-400/70" />
-              </div>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink
+                      href="/work"
+                      className="text-black transition-colors dark:text-white"
+                    >
+                      Work
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
 
-              <div className="relative h-full flex items-center justify-center px-10">
-                <p className="text-3xl sm:text-4xl font-black leading-[1.05] tracking-tight text-slate-900 text-center">
-                  Good design
-                  <br />
-                  is good
-                  <br />
-                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    business.
-                  </span>
+                  <BreadcrumbSeparator className="text-black dark:text-white" />
+
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-medium">
+                      <GradientText
+                        colors={["#3B82F6", "#8B5CF6", "#A855F7"]}
+                        animationSpeed={8}
+                        showBorder={false}
+                      >
+                        Graphic Design
+                      </GradientText>
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            )}
+            <div>
+              {/* Badge */}
+              <motion.div
+                animate={{
+                  y: [0, -4, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                }}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-xl"
+              >
+                <span className="h-2 w-2 rounded-full bg-violet-500" />
+
+                {isHero ? "Available For Freelance" : "Graphic Design"}
+              </motion.div>
+
+              {!isHero ? (
+                <h1 className="mt-8 text-5xl font-black leading-[1.05] tracking-tight lg:text-7xl">
+                  Visuals{" "}
+                  <GradientText
+                    colors={["#3B82F6", "#8B5CF6", "#A855F7"]}
+                    animationSpeed={8}
+                    showBorder={false}
+                    classNameText="font-black"
+                  >
+                    that
+                  </GradientText>
+                  speaks your{" "}
+                  <GradientText
+                    colors={["#8B5CF6", "#3B82F6", "#22D3EE"]}
+                    animationSpeed={8}
+                    showBorder={false}
+                    classNameText="font-black"
+                  >
+                    Brand.
+                  </GradientText>
+                </h1>
+              ) : (
+                <h1 className="mt-8 text-5xl font-black leading-[1.05] tracking-tight lg:text-7xl z-60">
+                  <p className="z-11">Designs that</p>
+                  <GradientText
+                    colors={["#3B82F6", "#8B5CF6", "#A855F7"]}
+                    animationSpeed={8}
+                    showBorder={false}
+                    classNameText="font-black z-11"
+                  >
+                    inspire.
+                  </GradientText>
+                  Edits that make an{" "}
+                  <GradientText
+                    colors={["#8B5CF6", "#3B82F6", "#22D3EE"]}
+                    animationSpeed={8}
+                    showBorder={false}
+                    classNameText="font-black"
+                  >
+                    impact.
+                  </GradientText>
+                </h1>
+              )}
+
+              {isHero ? (
+                <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+                  We are Zentrix Fintech — a creative digital agency blending strategy, cinematic
+                  storytelling, and cutting-edge design to help modern brands stand out, connect
+                  deeply, and grow with impact across the digital world.
                 </p>
-              </div>
+              ) : (
+                <p className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed">
+                  We design clean, modern,and memorable visuals that communicate your message and
+                  leave a lasting impression.
+                </p>
+              )}
 
-              {/* corner accent */}
-              <div className="absolute bottom-3 right-4 flex items-center gap-1.5 text-[10px] font-medium text-slate-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                AK.Studio
-              </div>
-            </div>
-            {/* Stand notch */}
-            <div className="mx-auto mt-1 h-1.5 w-20 rounded-b-lg bg-slate-700" />
-          </div>
+              {isHero ? (
+                <div>
+                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                    <RedirectButton
+                      label="Hire Me"
+                      to="/contact"
+                      className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98] bg-primary text-primary-foreground hover:bg-primary/90"
+                      icon={<ArrowUpRight className="h-4 w-4" />}
+                    />
+                    <RedirectButton
+                      label="Watch Showreel"
+                      to="/work/graphic-design"
+                      className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98] bg-transparent text-foreground border border-border hover:bg-muted"
+                      icon={<Play className="h-4 w-4 fill-current" />}
+                    />
+                  </div>
+                  <div className="mt-10 flex items-center gap-3">
+                    <span className="text-xs uppercase tracking-widest text-muted-foreground">
+                      Follow
+                    </span>
+                    <span className="h-px w-10 bg-border" />
+                    {[Twitter, Instagram, Dribbble, Linkedin, Github].map((Icon, i) => (
+                      <motion.a
+                        key={i}
+                        href="#"
+                        whileHover={{ y: -3 }}
+                        className="rounded-full border border-border bg-background p-2.5 text-muted-foreground hover:text-primary hover:border-primary/40 transition"
+                      >
+                        <Icon className="h-4 w-4" />
+                      </motion.a>
+                    ))}
+                  </div>{" "}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-8">
+                  {features.map((feature, i) => {
+                    const Icon = feature.icon;
 
-          {/* Stand */}
-          <div className="mx-auto -mt-px h-8 w-2 bg-gradient-to-b from-slate-700 to-slate-600" style={{ width: "10px" }} />
-          <div className="mx-auto h-2 w-40 rounded-full bg-gradient-to-b from-slate-700 to-slate-500 shadow-lg" />
-        </div>
+                    return (
+                      <div key={i} className="flex flex-col">
+                        {/* Icon Box */}
+                        <div className="w-12 h-12 rounded-md bg-[#F4F7FF] flex items-center justify-center shadow-sm">
+                          <Icon className="w-6 h-6 text-blue-600 stroke-[2]" />
+                        </div>
 
-        {/* Desk surface */}
-        <div className="relative mt-4 w-[92%] h-[120px] rounded-t-[2rem] bg-gradient-to-b from-[#e8eaf2] via-[#dfe3ee] to-[#cbd0dc] shadow-[inset_0_2px_0_rgba(255,255,255,0.7),0_20px_50px_-10px_rgba(15,23,42,0.25)]">
-            {/* keyboard */}
-            <div className="absolute top-5 left-1/2 -translate-x-1/2 w-[220px] h-[60px] rounded-xl bg-gradient-to-b from-white to-slate-100 shadow-md border border-slate-200/80 p-2">
-              <div className="grid grid-cols-12 gap-[3px] h-full">
-                {[...Array(36)].map((_, i) => (
-                  <div key={i} className="rounded-[3px] bg-slate-100 border border-slate-200/70" />
-                ))}
-              </div>
-            </div>
-            {/* mouse */}
-            <div className="absolute top-7 right-12 w-9 h-14 rounded-[12px] bg-gradient-to-b from-white to-slate-100 shadow-md border border-slate-200/80" />
-            {/* mug */}
-            <div className="absolute -top-8 left-10">
-              <div className="relative w-12 h-14 rounded-b-[10px] rounded-t-md bg-gradient-to-b from-white to-slate-100 border border-slate-200 shadow-md">
-                <div className="absolute -right-2 top-3 w-3 h-6 rounded-full border-2 border-slate-300" />
-                <div className="absolute inset-x-1 top-1 h-1 rounded-full bg-blue-500/70" />
-              </div>
-            </div>
-            {/* plant */}
-            <div className="absolute -top-12 right-8">
-              <div className="relative w-12 h-10 rounded-b-xl bg-gradient-to-b from-orange-200 to-orange-300 border border-orange-300/60" />
-              <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex gap-0.5">
-                <span className="block w-2 h-8 rounded-full bg-green-500 rotate-[-15deg]" />
-                <span className="block w-2 h-10 rounded-full bg-green-600" />
-                <span className="block w-2 h-8 rounded-full bg-green-500 rotate-[15deg]" />
-              </div>
-            </div>
-        </div>
-      </motion.div>
+                        {/* Title */}
+                        <h3 className="mt-5 text-base font-semibold text-slate-600 dark:text-slate-300 ">
+                          {feature.title}
+                        </h3>
 
-      {/* Floating service card */}
-      <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ delay: 1, duration: 0.8 }}
-        className="absolute bottom-4 left-0 sm:left-2 z-40"
-      >
-        <motion.div
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          whileHover={{ y: -12 }}
-          className="w-[260px] rounded-3xl bg-white/80 backdrop-blur-2xl border border-white shadow-[0_30px_60px_-15px_rgba(15,23,42,0.2)] p-5"
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <span className="relative flex w-2 h-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-70 animate-ping" />
-              <span className="relative inline-flex w-2 h-2 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(59,130,246,0.9)]" />
-            </span>
-            <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-500">
-              Now offering
-            </span>
-          </div>
-          <div className="text-base font-bold text-slate-900 leading-snug">
-            Brand & Identity
-            <br />
-            Design
-          </div>
-          <div className="mt-4 flex items-center justify-between">
-            <div className="flex -space-x-2">
-              {[21, 22, 23, 24].map((n) => (
-                <img
-                  key={n}
-                  src={`https://i.pravatar.cc/80?img=${n}`}
-                  alt=""
-                  className="w-7 h-7 rounded-full border-2 border-white object-cover"
-                />
-              ))}
+                        {/* Description */}
+                        <p className="mt-2 text-slate-500 leading-relaxed text-sm max-w-[220px]">
+                          {feature.desc}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-            <motion.button
-              whileHover={{ rotate: 45, scale: 1.1 }}
-              className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-[0_8px_20px_-4px_rgba(59,130,246,0.6)]"
+          </motion.div>
+
+          {/* RIGHT — workspace mockup */}
+          <motion.div
+            initial={{ opacity: 1, scale: 0.9, rotate: -2 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 1 }}
+            className="relative z-10"
+          >
+            {/* Floating Orbit */}
+            <motion.div
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="absolute inset-0 rounded-full border border-dashed border-violet-500/20"
+            />
+
+            {/* Glow Rings */}
+            <div className="absolute inset-10 rounded-full border border-blue-500/10" />
+            <div className="absolute inset-20 rounded-full border border-violet-500/10" />
+
+            {/* Main Image */}
+            <motion.div
+              whileHover={{
+                rotateX: 4,
+                rotateY: -4,
+                scale: 1.02,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+              }}
+              className="relative"
+              style={{
+                transformStyle: "preserve-3d",
+              }}
             >
-              <ArrowUpRight className="w-4 h-4" />
-            </motion.button>
-          </div>
-        </motion.div>
-      </motion.div>
-    </div>
+              <img
+                src={HeroImg}
+                alt="3D Hero"
+                className="relative z-10 drop-shadow-[0_40px_100px_rgba(124,58,237,0.4)] w-[75rem] h-[35rem]"
+              />
+
+              {/* Floating Glass Card */}
+              <motion.div
+                animate={{
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                }}
+                className="absolute -bottom-6 left-10 z-20 rounded-3xl border border-white/10 bg-white/10 p-5 backdrop-blur-2xl"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-r from-blue-500 to-violet-500">
+                    <PenTool className="h-6 w-6" />
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold">UI/UX & Motion Design</h4>
+
+                    <p className="text-sm text-black dark:text-white/60">Trusted by 50+ brands</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Floating Icons */}
+              {[
+                {
+                  icon: <PenTool className="h-5 w-5" />,
+                  className: "left-0 top-10",
+                  color: "from-violet-500 to-purple-500",
+                },
+                {
+                  icon: <Play className="h-5 w-5" />,
+                  className: "right-0 top-32",
+                  color: "from-pink-500 to-violet-500",
+                },
+                {
+                  icon: <ImageIcon className="h-5 w-5" />,
+                  className: "left-16 bottom-20",
+                  color: "from-blue-500 to-cyan-500",
+                },
+                {
+                  icon: <Clapperboard className="h-5 w-5" />,
+                  className: "right-12 bottom-10",
+                  color: "from-cyan-500 to-emerald-500",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  animate={{
+                    y: [0, -12, 0],
+                    rotate: [0, 6, -6, 0],
+                  }}
+                  transition={{
+                    duration: 5 + i,
+                    repeat: Infinity,
+                  }}
+                  className={`absolute z-20 ${item.className}`}
+                >
+                  <div
+                    className={`flex h-16 w-16 items-center justify-center rounded-3xl border border-white/10 bg-gradient-to-br ${item.color} shadow-[0_10px_40px_rgba(124,58,237,0.35)]`}
+                  >
+                    {item.icon}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+        {/* <VideoEditingSection /> */}
+        {isHero && <VideoShowcase variant="hero" />}
+      </div>
+    </section>
   );
 }
 
@@ -470,25 +678,25 @@ export function VideoShowcase({ variant = "default" }: Props) {
       title: "Cinematic Edits",
       desc: "Story-driven edits with smooth pacing and flow.",
       gradient: "from-violet-500 to-purple-500",
-      icon: "✂",
+      icon: Film,
     },
     {
       title: "Smooth Transitions",
       desc: "Seamless transitions that keep viewers engaged.",
       gradient: "from-blue-500 to-cyan-500",
-      icon: "⤴",
+      icon: Wand2,
     },
     {
       title: "Color Grading",
       desc: "Professional color correction that sets the mood.",
       gradient: "from-emerald-500 to-teal-500",
-      icon: "◉",
+      icon: Palette,
     },
     {
       title: "Audio Enhancement",
       desc: "Crisp audio, perfect sync, and noise reduction.",
       gradient: "from-pink-500 to-rose-500",
-      icon: "🔊",
+      icon: AudioLines,
     },
   ];
   const stats = [
@@ -509,7 +717,7 @@ export function VideoShowcase({ variant = "default" }: Props) {
   return (
     <section className={`w-full ${isHero ? "flex items-center justify-center" : " block pb-20"}`}>
       <div
-        className={`relative  border border-white/10 bg-[#0a0a14] px-6 py-10 sm:px-8 lg:px-12 ${isHero ? "rounded-[1.5rem]" : "rounded-[0rem] flex items-center justify-center py-20"}`}
+        className={`relative border border-white/10 bg-[#0a0a14] px-6 py-10 sm:px-8 lg:px-12 ${isHero ? "rounded-[1.5rem]" : "rounded-[0rem] flex items-center justify-center py-20"}`}
       >
         {/* Background Effects */}
         <div className="pointer-events-none absolute -top-32 left-0 h-96 w-96 rounded-full bg-violet-600/30 blur-3xl" />
@@ -517,14 +725,14 @@ export function VideoShowcase({ variant = "default" }: Props) {
 
         <div className={`relative flex gap-16 items-center ${!isHero && "h-[620px]"}`}>
           {/* LEFT CONTENT */}
-          <div className="max-w-md flex flex-col items-start h-full">
+          <div className="max-w-md flex flex-col items-start h-full z-10">
             {!isHero && (
               <Breadcrumb className="mb-20">
                 <BreadcrumbList>
                   <BreadcrumbItem>
                     <BreadcrumbLink
                       href="/"
-                      className="text-white/70 hover:text-white transition-colors"
+                      className="text-white/70 hover:text-white transition-colors dark:text-white"
                     >
                       Home
                     </BreadcrumbLink>
@@ -545,7 +753,13 @@ export function VideoShowcase({ variant = "default" }: Props) {
 
                   <BreadcrumbItem>
                     <BreadcrumbPage className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent font-medium">
-                      Video Editing
+                      <GradientText
+                        colors={["#3B82F6", "#8B5CF6", "#A855F7"]}
+                        animationSpeed={8}
+                        showBorder={false}
+                      >
+                        Video Editing
+                      </GradientText>
                     </BreadcrumbPage>
                   </BreadcrumbItem>
                 </BreadcrumbList>
@@ -608,15 +822,13 @@ export function VideoShowcase({ variant = "default" }: Props) {
               {/* BUTTON */}
               {isHero && (
                 <div className="mt-10">
-                  <button
-                    onClick={() =>
-                      (window.location.href = "http://localhost:8080/work/video-editing")
+                  <RedirectButton
+                    label="Explore Edits"
+                    to="/work/video-editing"
+                    icon={
+                      <MoveRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     }
-                    className="group flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-all duration-300 hover:scale-[1.02]"
-                  >
-                    Explore Edits
-                    <MoveRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </button>
+                  />
                 </div>
               )}
             </div>
@@ -624,11 +836,11 @@ export function VideoShowcase({ variant = "default" }: Props) {
 
           {/* RIGHT IMAGE */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 1, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative flex justify-center max-w-7xl"
+            className="relative flex justify-center max-w-7xl z-10"
           >
             {/* Glow */}
             <div className="absolute inset-0 rounded-[2rem] bg-violet-500/10 blur-2xl" />
@@ -697,27 +909,46 @@ export function VideoShowcase({ variant = "default" }: Props) {
           </motion.div>
         </div>
         {!isHero && (
-          <section className="w-full px-6 py-8 absolute -bottom-45 z-30">
-            <div className="max-w-7xl mx-auto rounded-[32px] border border-slate-200 bg-white shadow-sm ">
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+          <section className="absolute -bottom-48 z-30 w-full px-6 py-8">
+            <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-slate-200 bg-white/50 backdrop-blur-xl shadow-[0_10px_40px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-[#0B1120]/90 dark:shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
+              {/* Glow */}
+
+              <div className="relative grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
                 {features2.map((feature, i) => (
                   <div
                     key={i}
-                    className={`relative p-8 ${
-                      i !== features.length - 1
-                        ? "border-b xl:border-b-0 xl:border-r border-slate-200"
+                    className={`group relative overflow-hidden p-8 transition-all duration-500 hover:bg-white/60 dark:hover:bg-white/[0.03] ${
+                      i !== features2.length - 1
+                        ? "border-b border-slate-200 xl:border-b-0 xl:border-r dark:border-white/10"
                         : ""
                     }`}
                   >
+                    {/* Hover Glow */}
                     <div
-                      className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white text-xl shadow-lg`}
+                      className={`absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br ${feature.gradient} opacity-10 blur-3xl transition-all duration-500 group-hover:scale-125 group-hover:opacity-20`}
+                    />
+
+                    {/* Icon */}
+                    <div
+                      className={`relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${feature.gradient} text-xl text-white shadow-[0_10px_30px_rgba(0,0,0,0.12)]`}
                     >
-                      {feature.icon}
+                      <feature.icon className="h-6 w-6" />
                     </div>
 
-                    <h3 className="mt-6 text-xl font-bold text-slate-900">{feature.title}</h3>
+                    {/* Title */}
+                    <h3 className="relative mt-6 text-xl font-bold tracking-tight text-slate-800 dark:text-white">
+                      {feature.title}
+                    </h3>
 
-                    <p className="mt-3 text-slate-500 leading-relaxed text-sm">{feature.desc}</p>
+                    {/* Desc */}
+                    <p className="relative mt-3 text-sm leading-relaxed text-slate-500 dark:text-white/60">
+                      {feature.desc}
+                    </p>
+
+                    {/* Bottom line */}
+                    <div
+                      className={`absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r ${feature.gradient} transition-all duration-500 group-hover:w-full`}
+                    />
                   </div>
                 ))}
               </div>
@@ -735,33 +966,37 @@ function ServicesElevateBrandSection() {
       title: "Graphic Design",
       desc: "Logos, branding, print & digital visuals that communicate your message clearly.",
       gradient: "from-blue-500 to-cyan-400",
+      icon: Palette,
     },
     {
       title: "Video Editing",
       desc: "Professional edits that turn raw footage into engaging cinematic stories.",
       gradient: "from-purple-500 to-pink-500",
+      icon: Clapperboard,
     },
     {
       title: "Brand Identity",
       desc: "Complete identity systems that help your business stand out beautifully.",
       gradient: "from-emerald-500 to-teal-400",
+      icon: Layers3,
     },
     {
       title: "Social Media Design",
       desc: "High-performing social creatives optimized for engagement and growth.",
       gradient: "from-orange-500 to-pink-500",
+      icon: Sparkles,
     },
   ];
 
   return (
     <section className="w-full px-6 md:px-10 py-20  overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-[0.25em] uppercase border border-blue-100">
+        <div className="text-center max-w-3xl mx-auto z-10">
+          <span className="inline-flex  items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold tracking-[0.25em] uppercase border border-blue-100">
             What We Do
           </span>
 
-          <h2 className="mt-6 text-4xl md:text-6xl font-black text-slate-900 leading-[1]">
+          <h2 className="mt-6 text-4xl md:text-6xl font-black leading-[1]">
             Services That Elevate
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {" "}
@@ -769,44 +1004,76 @@ function ServicesElevateBrandSection() {
             </span>
           </h2>
 
-          <p className="mt-6 text-slate-500 text-lg leading-relaxed">
+          <p className="mt-6 text-lg leading-relaxed text-slate-600 dark:text-slate-300">
             Powerful design and editing solutions crafted to help brands stand out, connect with
             audiences, and grow with confidence.
           </p>
         </div>
 
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          {services.map((service, i) => (
-            <div
-              key={i}
-              className="group relative rounded-[32px] border border-slate-200 bg-white p-7 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
-            >
-              <div
-                className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${service.gradient} opacity-10 blur-3xl rounded-full`}
+          {services.map((service) => {
+            const Icon = service.icon;
+            return (
+              <TiltedCard
+                key={service.title}
+                altText={service.title}
+                captionText={service.title}
+                containerHeight="320px"
+                containerWidth="100%"
+                imageHeight="320px"
+                imageWidth="100%"
+                rotateAmplitude={12}
+                scaleOnHover={1.05}
+                showImage={false}
+                showMobileWarning={false}
+                showTooltip={false}
+                displayOverlayContent
+                overlayContent={
+                  <div className="group relative flex h-full w-full flex-col rounded-[28px] border border-slate-200/70 bg-white/80 p-6 shadow-[0_10px_40px_rgba(15,23,42,0.06)] backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(59,130,246,0.12)] dark:border-white/10 dark:bg-white/[0.04] dark:shadow-[0_10px_40px_rgba(0,0,0,0.35)] dark:hover:shadow-[0_20px_80px_rgba(124,58,237,0.2)]">
+                    {/* Glow */}
+                    <div
+                      className={`absolute right-6 top-6 h-24 w-24 rounded-full bg-gradient-to-br ${service.gradient} opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40`}
+                    />
+
+                    {/* Top Blur Overlay */}
+                    <div className="absolute inset-0 rounded-[28px] bg-gradient-to-b from-white/40 to-transparent opacity-80 dark:from-white/[0.03]" />
+
+                    {/* Icon */}
+                    <div
+                      className={`relative h-14 w-14 rounded-2xl bg-gradient-to-br ${service.gradient} p-[1px] shadow-lg`}
+                    >
+                      <div className="flex h-full w-full items-center justify-center rounded-2xl bg-white dark:bg-[#0B1120]">
+                        <Icon className="h-6 w-6 text-slate-700 dark:text-white" />
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="relative mt-6 text-xl font-semibold tracking-tight text-slate-800 dark:text-white">
+                      {service.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="relative mt-3 text-sm leading-relaxed text-slate-500 dark:text-white/60">
+                      {service.desc}
+                    </p>
+
+                    {/* Button */}
+                    <button className="relative mt-auto inline-flex items-center gap-3 pt-6 text-sm font-semibold text-slate-700 transition-colors duration-300 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
+                      Learn More
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition-all duration-300 group-hover:translate-x-1 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-violet-600 group-hover:text-white dark:bg-white/10 dark:text-white">
+                        →
+                      </span>
+                    </button>
+
+                    {/* Bottom Border Glow */}
+                    <div
+                      className={`absolute bottom-0 left-4 h-[2px] w-0 rounded-full bg-gradient-to-r ${service.gradient} transition-all duration-500 group-hover:w-[90%]`}
+                    />
+                  </div>
+                }
               />
-
-              <div
-                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} p-[1px]`}
-              >
-                <div className="w-full h-full rounded-2xl bg-white flex items-center justify-center">
-                  <div className={`w-8 h-8 rounded-xl bg-gradient-to-br ${service.gradient}`} />
-                </div>
-              </div>
-
-              <h3 className="mt-8 text-2xl font-bold text-slate-900">{service.title}</h3>
-
-              <p className="mt-4 text-slate-500 leading-relaxed text-base">{service.desc}</p>
-
-              <button className="mt-8 inline-flex items-center gap-3 text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
-                Learn More
-                <span className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">
-                  →
-                </span>
-              </button>
-
-              <div className="absolute inset-0 rounded-[32px] border border-transparent group-hover:border-blue-200 transition-all duration-500 pointer-events-none" />
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-20 rounded-[40px] bg-gradient-to-r from-[#0B1023] via-[#111827] to-[#1B0D36] overflow-hidden relative p-10 md:p-14">
@@ -833,12 +1100,12 @@ function ServicesElevateBrandSection() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 z-11">
               <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-lg shadow-blue-500/20 hover:scale-105 transition-transform">
                 Start a Project
               </button>
 
-              <button className="px-8 py-4 rounded-2xl border border-white/10 bg-white/5 text-white font-semibold hover:bg-white/10 transition">
+              <button className="px-8 py-4 z-11 rounded-2xl border border-white/10 bg-white/5 text-white font-semibold hover:bg-white/10 transition">
                 View Portfolio
               </button>
             </div>
@@ -951,81 +1218,81 @@ const items = [
   },
 ];
 
-function Card({ t }: { t: (typeof items)[number] }) {
-  return (
-    <div className="w-[340px] sm:w-[420px] shrink-0 rounded-3xl glass gradient-border p-7 hover-glow mx-3">
-      <Quote className="h-7 w-7 text-primary" />
-      <p className="mt-5 text-base leading-relaxed text-foreground">"{t.q}"</p>
-      <div className="mt-7 flex items-center justify-between border-t border-border/60 pt-5">
-        <div className="flex items-center gap-3">
-          <div
-            className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${t.color} text-sm font-semibold text-foreground/80`}
-          >
-            {t.initials}
-          </div>
-          <div>
-            <div className="text-sm font-semibold">{t.a}</div>
-            <div className="text-xs text-muted-foreground">{t.r}</div>
-          </div>
-        </div>
-        <div className="flex gap-0.5 text-primary">
-          {Array.from({ length: 5 }).map((_, j) => (
-            <Star key={j} className="h-3.5 w-3.5 fill-current" />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+// function Card({ t }: { t: (typeof items)[number] }) {
+//   return (
+//     <div className="w-[340px] sm:w-[420px] shrink-0 rounded-3xl glass gradient-border p-7 hover-glow mx-3">
+//       <Quote className="h-7 w-7 text-primary" />
+//       <p className="mt-5 text-base leading-relaxed text-foreground">"{t.q}"</p>
+//       <div className="mt-7 flex items-center justify-between border-t border-border/60 pt-5">
+//         <div className="flex items-center gap-3">
+//           <div
+//             className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${t.color} text-sm font-semibold text-foreground/80`}
+//           >
+//             {t.initials}
+//           </div>
+//           <div>
+//             <div className="text-sm font-semibold">{t.a}</div>
+//             <div className="text-xs text-muted-foreground">{t.r}</div>
+//           </div>
+//         </div>
+//         <div className="flex gap-0.5 text-primary">
+//           {Array.from({ length: 5 }).map((_, j) => (
+//             <Star key={j} className="h-3.5 w-3.5 fill-current" />
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
-function Testimonials() {
-  const row1 = [...items, ...items];
-  const row2 = [...items.slice().reverse(), ...items.slice().reverse()];
+// function Testimonials() {
+//   const row1 = [...items, ...items];
+//   const row2 = [...items.slice().reverse(), ...items.slice().reverse()];
 
-  return (
-    <div className="py-24">
-      <div className="mx-auto max-w-7xl ">
-        <SectionTitle
-          eyebrow="Testimonials"
-          title="Trusted by teams who ship."
-          subtitle="Hover to pause the marquee."
-        />
-      </div>
+//   return (
+//     <div className="py-24">
+//       <div className="mx-auto max-w-7xl ">
+//         <SectionTitle
+//           eyebrow="Testimonials"
+//           title="Trusted by teams who ship."
+//           subtitle="Hover to pause the marquee."
+//         />
+//       </div>
 
-      <div className="mt-16 space-y-6 ">
-        {[row1, row2].map((row, idx) => (
-          <div key={idx} className="relative overflow-hidden">
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
-            <div
-              className="marquee-track flex w-max"
-              style={{
-                animationDirection: idx === 1 ? "reverse" : "normal",
-                animationDuration: idx === 1 ? "55s" : "45s",
-              }}
-            >
-              {row.map((t, i) => (
-                <Card key={`${idx}-${i}`} t={t} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+//       <div className="mt-16 space-y-6 ">
+//         {[row1, row2].map((row, idx) => (
+//           <div key={idx} className="relative overflow-hidden">
+//             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
+//             <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
+//             <div
+//               className="marquee-track flex w-max"
+//               style={{
+//                 animationDirection: idx === 1 ? "reverse" : "normal",
+//                 animationDuration: idx === 1 ? "55s" : "45s",
+//               }}
+//             >
+//               {row.map((t, i) => (
+//                 <Card key={`${idx}-${i}`} t={t} />
+//               ))}
+//             </div>
+//           </div>
+//         ))}
+//       </div>
 
-      <div className="mx-auto mt-20 max-w-4xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl bg-foreground text-background p-12 text-center"
-        >
-          <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/40 blur-3xl" />
-          <div className="relative">
-            <h3 className="text-3xl md:text-4xl font-semibold">Your story, told beautifully.</h3>
-            <p className="mt-3 text-background/70">Let's create work worth sharing.</p>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
+//       <div className="mx-auto mt-20 max-w-4xl px-6">
+//         <motion.div
+//           initial={{ opacity: 0, y: 20 }}
+//           whileInView={{ opacity: 1, y: 0 }}
+//           viewport={{ once: true }}
+//           className="relative overflow-hidden rounded-3xl bg-foreground text-background p-12 text-center"
+//         >
+//           <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/40 blur-3xl" />
+//           <div className="relative">
+//             <h3 className="text-3xl md:text-4xl font-semibold">Your story, told beautifully.</h3>
+//             <p className="mt-3 text-background/70">Let's create work worth sharing.</p>
+//           </div>
+//         </motion.div>
+//       </div>
+//     </div>
+//   );
+// }

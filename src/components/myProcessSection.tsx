@@ -6,6 +6,7 @@ import SparklesIcon from "./ui/sparkles-icon";
 import TruckElectricIcon from "./ui/truck-electric-icon";
 import FileDescriptionIcon from "./ui/file-description-icon";
 import SlidersHorizontalIcon from "./ui/sliders-horizontal-icon";
+import GradientText from "./GradientText";
 
 type MyProcessSetionProps = {
   variant?: "default" | "hero";
@@ -90,15 +91,24 @@ export function MyProcessSection({ variant }: MyProcessSetionProps) {
         )}
 
         {isHero ? (
-          <h2 className="mt-4 text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-            A Simple Process,
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              {" "}
-              Powerful Results
+          <h2 className="mt-4 flex flex-wrap items-center justify-center gap-x-3 text-4xl md:text-5xl font-black text-slate-500 dark:text-white/60 leading-tight">
+            <span className="whitespace-nowrap">A Simple Process,</span>
+
+            <span className="whitespace-nowrap">
+              <GradientText
+                colors={["#3B82F6", "#8B5CF6", "#A855F7"]}
+                animationSpeed={8}
+                showBorder={false}
+                classNameText="font-black"
+              >
+                Powerful Results
+              </GradientText>
             </span>
           </h2>
         ) : (
-          <h2 className="mt-4 text-3xl font-bold text-slate-900">My Editing Process</h2>
+          <h2 className="mt-4 text-3xl font-bold text-slate-500 dark:text-white/60">
+            My Editing Process
+          </h2>
         )}
 
         <div className="mt-20 relative">
@@ -115,7 +125,9 @@ export function MyProcessSection({ variant }: MyProcessSetionProps) {
                   {item.number}
                 </span>
 
-                <h3 className="mt-3 text-xl font-bold text-slate-900">{item.title}</h3>
+                <h3 className="mt-3 text-xl font-bold text-slate-500 dark:text-white/60">
+                  {item.title}
+                </h3>
 
                 <p className="mt-3 text-slate-500 leading-relaxed text-sm max-w-[220px]">
                   {item.desc}
