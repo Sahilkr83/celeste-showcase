@@ -14,5 +14,8 @@ export default defineConfig({
   },
   tanstackStart: {
     ssr: true,
+    router: {
+      enableRouteGeneration: true,
+    },
   },
 });
